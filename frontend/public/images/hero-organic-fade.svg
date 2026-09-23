@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-50 0 1050 1000" preserveAspectRatio="none">
+  <defs>
+    <filter id="soften" x="-10%" y="-5%" width="120%" height="110%">
+      <feGaussianBlur stdDeviation="18" />
+    </filter>
+  </defs>
+  <path
+    d="M 8 -40 L 1000 -40 L 1000 1040 L 18 1040 C 28 910 46 800 56 700 C 75 590 86 470 76 360 C 68 256 38 110 8 -40 Z"
+    fill="white"
+    filter="url(#soften)"
+  />
+</svg>
