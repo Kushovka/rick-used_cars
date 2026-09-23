@@ -6,13 +6,13 @@ const notCovered = ['Brakes and tires', 'Suspension and steering', 'Battery, bel
 const voids = ['Aftermarket parts or tuning', 'Missed maintenance', 'Accident damage', 'Towing beyond rating, off-road use, or racing', 'Repair outside dealer-authorized service']
 
 const leftTerms = [
-  ['Return window', 'Return requests are available within 14 calendar days of delivery or pickup, according to the final purchase paperwork.'],
+  ['Return window', 'The 72-hour money-back guarantee is available from delivery or pickup, according to the final purchase paperwork.'],
   ['Warranty start date', 'Warranty starts from the purchase date or delivery date for out-of-area customers.'],
   ['Maintenance records', 'Keep all service and maintenance receipts. Missing records may affect warranty eligibility.'],
 ]
 const rightTerms = [
   ['Dealer-covered return', 'When return terms are met, return costs are handled by the dealership and the vehicle refund is processed according to the signed documents.'],
-  ['Time and mileage limit', 'Coverage is measured by both days and mileage at the same time; it ends when either 90 days or 5,000 miles is reached first.'],
+  ['Time and mileage limit', 'Coverage is measured by both days and mileage at the same time; it ends when either 90 days or 3,000 miles is reached first.'],
   ['Written agreements', 'Keep all promises, approvals, and repair instructions in writing before authorizing work.'],
   ["Service provider", "Confirm whether coverage is handled directly by Rick's Used Cars or through a third-party warranty company."],
 ]
@@ -42,8 +42,8 @@ export const WarrantyPage = () => (
       <section className="warranty-summary" aria-label="Warranty summary">
         <div className="warranty-container">
           <div className="warranty-summary-grid">
-            <article className="warranty-summary-item"><FaShieldAlt className="warranty-summary-shield" aria-hidden="true" /><span className="warranty-summary-number">01</span><div><h2>14-day return</h2><p>Clear return terms explained before purchase.</p></div></article>
-            <article className="warranty-summary-item"><FaShieldAlt className="warranty-summary-shield" aria-hidden="true" /><span className="warranty-summary-number">02</span><div><h2>90 days / 5,000 miles</h2><p>Coverage for eligible major components, subject<br className="hidden xl:block" /> to the purchase documents.</p></div></article>
+            <article className="warranty-summary-item"><FaShieldAlt className="warranty-summary-shield" aria-hidden="true" /><span className="warranty-summary-number">01</span><div><h2>72-hour money-back guarantee</h2><p>Clear return terms explained before purchase.</p></div></article>
+            <article className="warranty-summary-item"><FaShieldAlt className="warranty-summary-shield" aria-hidden="true" /><span className="warranty-summary-number">02</span><div><h2>90-Day / 3,000-Mile Warranty</h2><p>Coverage for eligible major components, subject<br className="hidden xl:block" /> to the purchase documents.</p></div></article>
           </div>
           <p className="warranty-summary-note">Actual coverage, exclusions and return terms are controlled by the documents signed at purchase.</p>
         </div>

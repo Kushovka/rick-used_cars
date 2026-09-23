@@ -92,6 +92,7 @@ const FeaturedVehicleShowcase = ({ vehicle }: { vehicle: Vehicle }) => {
           <div className="featured-vehicle-card__meta"><span>{vehicle.bodyType}</span>{vehicle.stockNumber ? <span>#{vehicle.stockNumber}</span> : null}</div>
           <h3>{title}</h3>
           <p className="featured-vehicle-card__price">{formatPrice(vehicle.price)}</p>
+          <p className="featured-vehicle-card__guarantee"><FaShieldAlt aria-hidden="true" />72-hour money-back guarantee</p>
           <div className="featured-vehicle-card__specs">
             <span><FaRoad />{formatNumber(vehicle.mileage)} mi</span>
             {vehicle.engine ? <span><FaCog />{vehicle.engine}</span> : null}
@@ -259,12 +260,8 @@ export const HomePage = () => {
         schema={autoDealerSchema}
       />
 
-      <motion.section
-        className="relative min-h-[680px] overflow-hidden bg-[var(--color-background)] text-[var(--color-text)] lg:min-h-[calc(100svh-78px)]"
-        initial={prefersReducedMotion ? false : { opacity: 0, scale: 0.985, clipPath: "inset(0 0 9% 0)" }}
-        animate={{ opacity: 1, scale: 1, clipPath: "inset(0 0 0% 0)" }}
-        style={{ transformOrigin: "center bottom" }}
-        transition={{ duration: prefersReducedMotion ? 0.16 : 1.05, ease: [0.16, 1, 0.3, 1] }}
+      <section
+        className="relative min-h-[680px] overflow-hidden bg-[var(--color-background)] text-[var(--color-text)] lg:min-h-[calc(100svh-78px)] xl:min-h-[calc(100svh-112px)]"
       >
         <img
           src={business.heroImage}
@@ -277,7 +274,7 @@ export const HomePage = () => {
           className="pointer-events-none absolute inset-0 z-[1] hidden bg-[linear-gradient(90deg,#f5f1e8_0%,#f5f1e8_32%,rgba(245,241,232,0.99)_36%,rgba(245,241,232,0.92)_41%,rgba(245,241,232,0.70)_46%,rgba(245,241,232,0.42)_50%,rgba(245,241,232,0.18)_54%,rgba(245,241,232,0.05)_58%,rgba(245,241,232,0)_62%)] lg:block"
         />
 
-        <div className="relative z-10 mx-auto grid min-h-[650px] max-w-[1536px] content-start px-5 pb-12 pt-10 sm:px-8 lg:min-h-[calc(100svh-78px)] lg:content-start lg:px-[5.5rem] lg:pb-0 lg:pt-14 xl:pt-16">
+        <div className="relative z-10 mx-auto grid min-h-[650px] max-w-[1536px] content-start px-5 pb-12 pt-10 sm:px-8 lg:min-h-[calc(100svh-78px)] lg:content-start lg:px-[5.5rem] lg:pb-0 lg:pt-14 xl:min-h-[calc(100svh-112px)] xl:pt-16">
           <div className="max-w-[520px] bg-[var(--color-background)]/90 p-6 sm:p-9 lg:max-w-[500px] lg:bg-transparent lg:p-0 xl:max-w-[570px]">
             <p className="flex items-center gap-4 text-xs font-bold uppercase tracking-[0.32em] text-[var(--color-primary)] lg:text-[13px]">Dallas, Pennsylvania <span className="h-px w-10 bg-[var(--color-accent)]" /></p>
           <h1 className="mt-6 font-['Barlow_Condensed'] text-[64px] font-semibold uppercase leading-[0.88] tracking-[-0.035em] text-[var(--color-primary)] sm:text-[78px] lg:mt-5 lg:text-[84px] xl:text-[92px] min-[1024px]:max-[1320px]:text-[72px]">
@@ -305,9 +302,6 @@ export const HomePage = () => {
               <FaMapMarkerAlt />
               Get Directions
             </a>
-          </div>
-          <div className="mt-7 flex flex-wrap items-center gap-7 text-xs font-bold uppercase tracking-[0.08em] text-[var(--color-primary)] sm:gap-9 lg:mt-5 lg:gap-10 lg:text-[13px]">
-            <span className="flex gap-3"><FaCar className="text-2xl lg:text-[26px]" />Quality<br />Vehicles</span><i className="hidden h-9 w-px bg-[var(--color-border)] sm:block lg:h-10" /><span className="flex gap-3"><FaShieldAlt className="text-2xl lg:text-[26px]" />Fair<br />Pricing</span><i className="hidden h-9 w-px bg-[var(--color-border)] sm:block lg:h-10" /><span className="flex gap-3"><FaUsers className="text-2xl lg:text-[26px]" />Local<br />Dealership</span>
           </div>
           </div>
         </div>
@@ -345,8 +339,7 @@ export const HomePage = () => {
         <div className="absolute bottom-5 left-[5.5rem] z-10 hidden items-center gap-3 text-[10px] font-bold uppercase tracking-[0.2em] text-[var(--color-primary)] lg:flex">
           <span>Est. local</span><i aria-hidden="true" className="h-px w-12 bg-[var(--color-accent)]" />
         </div>
-        <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-[2] hidden bg-[linear-gradient(to_top_left,rgba(255,255,255,0.95)_0%,rgba(255,255,255,0.62)_14%,rgba(255,255,255,0.20)_27%,rgba(255,255,255,0)_40%)] lg:block" />
-      </motion.section>
+      </section>
 
       <motion.section
         className="border-b border-[var(--color-primary)] bg-[var(--color-primary)] text-[#fffdf8]"
@@ -355,15 +348,14 @@ export const HomePage = () => {
         viewport={{ once: true, amount: 0.2 }}
         transition={{ duration: prefersReducedMotion ? 0.14 : 0.55, ease: [0.16, 1, 0.3, 1] }}
       >
-        <div className="mx-auto grid max-w-[1440px] lg:grid-cols-[1.35fr_1fr_1fr_1fr]">
+        <div className="mx-auto grid max-w-[1440px] lg:grid-cols-[1.2fr_1fr_1fr]">
           <div className="border-b border-white/15 px-6 py-8 lg:border-b-0 lg:border-r lg:px-8">
             <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#d2c9b7]">Start with what you need</p>
             <p className="mt-3 max-w-sm text-lg leading-7 text-white/76">Every vehicle, question, and next step starts with a direct conversation.</p>
           </div>
           {[
             ['Browse the lot', 'See current vehicles, prices, mileage, and details.', '/inventory'],
-            ['Get financing help', 'Tell us what you are considering and we will follow up.', '/financing'],
-            ['Value your trade', 'Send the basics on your current vehicle.', '/trade-in'],
+            ['Ask a question', 'Send us a message about a vehicle or your visit.', '/contact'],
           ].map(([title, text, href]) => (
             <Link key={href} to={href} className="group border-b border-white/15 px-6 py-8 transition hover:bg-white/10 lg:border-b-0 lg:border-r lg:last:border-r-0 lg:px-8">
               <span className="block font-['Barlow_Condensed'] text-3xl font-semibold uppercase leading-none tracking-[-0.02em]">{title}</span>
@@ -385,7 +377,7 @@ export const HomePage = () => {
           <div className="featured-vehicles-heading">
             <p className="featured-vehicles-kicker">Featured vehicles <i /></p>
             <h2>Quality vehicles.<br /><span>Ready for the road.</span></h2>
-            <p className="featured-vehicles-description">Explore our latest arrivals. Clean titles, great prices, and vehicles you can count on — all here at Rick&apos;s Used Cars.</p>
+            <p className="featured-vehicles-description">Explore our latest arrivals. Clean titles, great prices, and vehicles you can count on, all here at Rick&apos;s Used Cars.</p>
           </div>
           <div className="featured-vehicles-aside">
             <div className="flex items-center justify-between lg:hidden">
@@ -465,7 +457,7 @@ export const HomePage = () => {
           <div className="visit-dealership-block">
             <div className="visit-dealership-photo">
               <img
-                src="/images/ricks-used-cars-notary.png"
+                src="/images/ricks-used-cars-notary.webp"
                 alt="Rick's Used Cars dealership in Dallas, Pennsylvania"
                 loading="lazy"
               />

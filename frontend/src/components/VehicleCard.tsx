@@ -37,7 +37,7 @@ export const VehicleCard = ({ vehicle }: VehicleCardProps) => {
 
     <div className="flex flex-1 flex-col p-5">
       <div>
-        <p className="text-xs font-bold uppercase tracking-[0.1em] text-[var(--color-muted)]">Stock #{vehicle.stockNumber}</p>
+        {vehicle.stockNumber ? <p className="text-xs font-bold uppercase tracking-[0.1em] text-[var(--color-muted)]">Stock #{vehicle.stockNumber}</p> : null}
         <h3 className="mt-3 line-clamp-2 font-['Barlow_Condensed'] text-3xl font-semibold leading-[0.9] text-[var(--color-text)]">
           {vehicle.year} {vehicle.make} {vehicle.model}
         </h3>

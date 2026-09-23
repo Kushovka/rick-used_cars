@@ -39,6 +39,7 @@ export type VehicleListParams = {
   pageSize?: number
   make?: string
   model?: string
+  q?: string
   yearFrom?: number
   yearTo?: number
   bodyType?: string
@@ -144,7 +145,7 @@ const toVehicle = (vehicle: ApiVehicle): Vehicle => {
     exteriorColor: vehicle.exterior_color ?? 'Not listed',
     interiorColor: vehicle.interior_color ?? 'Not listed',
     vin: vehicle.vin ?? 'Not listed',
-    stockNumber: vehicle.stock_number ?? vehicle.id,
+    stockNumber: vehicle.stock_number?.startsWith('RUC-') ? '' : (vehicle.stock_number ?? ''),
     status: vehicle.status,
     shortDescription: vehicle.short_description,
     description: vehicle.description ?? vehicle.short_description,
@@ -162,6 +163,7 @@ const toListParams = (params: VehicleListParams) => ({
   page_size: params.pageSize,
   make: params.make || undefined,
   model: params.model || undefined,
+  q: params.q?.trim().length && params.q.trim().length >= 2 ? params.q.trim() : undefined,
   year_from: params.yearFrom,
   year_to: params.yearTo,
   body_type: params.bodyType || undefined,

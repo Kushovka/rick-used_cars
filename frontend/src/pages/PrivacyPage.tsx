@@ -3,9 +3,9 @@ import { Seo } from '../components/Seo'
 import { business } from '../data/business'
 
 const sections = [
-  ['Information we collect', 'We may collect contact details, vehicle interests, trade-in details, financing preferences, messages you send, and basic website analytics such as pages visited, browser type, device data, and referral source.'],
-  ['How we use information', 'We use this information to respond to inquiries, schedule calls, discuss vehicle availability, support financing or trade-in requests, improve the website, and measure advertising performance.'],
-  ['Sharing', 'We may share information with service providers, financing partners, advertising and analytics platforms, or legal and operational partners when needed to respond to your request or operate the business. We do not sell personal information as a standalone customer list.'],
+  ['Information we collect', 'We may collect contact details, vehicle interests, messages you send, and basic website analytics such as pages visited, browser type, device data, and referral source.'],
+  ['How we use information', 'We use this information to respond to inquiries, discuss vehicle availability, improve the website, and measure advertising performance.'],
+  ['Sharing', 'We may share information with service providers, advertising and analytics platforms, or legal and operational partners when needed to respond to your request or operate the business. We do not sell personal information as a standalone customer list.'],
   ['Cookies and tracking', 'The website may use cookies, Meta Pixel, server-side conversion tracking, and similar tools to understand site usage and advertising results. You can decline optional cookies in the site banner or adjust browser settings.'],
   ['Your choices', 'You can ask us to update, correct, or delete contact information where legally possible. You can also opt out of marketing follow-up by contacting the dealership.'],
   ['Data security', 'We use reasonable safeguards, but no website or transmission method is completely secure. Please avoid sending sensitive financial information through open message fields.'],

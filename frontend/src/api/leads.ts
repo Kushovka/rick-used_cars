@@ -2,7 +2,7 @@ import { apiClient } from './client'
 
 export type LeadPayload = {
   vehicleId?: string
-  leadType: 'contact' | 'quote' | 'financing' | 'trade-in'
+  leadType: 'contact' | 'quote'
   customerName: string
   phone: string
   email?: string
@@ -10,12 +10,6 @@ export type LeadPayload = {
   preferredContact?: string
   zipCode?: string
   message?: string
-  tradeMake?: string
-  tradeModel?: string
-  tradeYear?: string
-  tradeMileage?: string
-  tradeVin?: string
-  tradeCondition?: string
   sourcePage?: string
   metaEventId?: string
   fbp?: string | null
@@ -42,12 +36,6 @@ export const createLead = async (payload: LeadPayload) => {
     preferred_contact: payload.preferredContact || undefined,
     zip_code: payload.zipCode || undefined,
     message: payload.message || undefined,
-    trade_make: payload.tradeMake || undefined,
-    trade_model: payload.tradeModel || undefined,
-    trade_year: payload.tradeYear || undefined,
-    trade_mileage: payload.tradeMileage || undefined,
-    trade_vin: payload.tradeVin || undefined,
-    trade_condition: payload.tradeCondition || undefined,
     source_page: payload.sourcePage || window.location.pathname,
     meta_event_id: payload.metaEventId,
     fbp: payload.fbp || undefined,

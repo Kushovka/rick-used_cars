@@ -3,18 +3,16 @@ import { Seo } from '../components/Seo'
 import { business } from '../data/business'
 
 const terms = [
-  ['Website information', "Inventory, pricing, mileage, equipment, photos, availability, financing examples, and vehicle details are provided for convenience and may change without notice. Confirm all details directly with Rick's Used Cars before relying on them."],
+  ['Website information', "Inventory, pricing, mileage, equipment, photos, availability, and vehicle details are provided for convenience and may change without notice. Confirm all details directly with Rick's Used Cars before relying on them."],
   ['Vehicle availability', 'A vehicle is not held, reserved, or sold until the required dealership paperwork, payment, and approval steps are completed. Online inquiries do not create a purchase agreement.'],
   ['Pricing and fees', 'Listed prices may not include tax, title, registration, dealer documentation, lender fees, optional products, shipping, or other government and third-party charges unless specifically stated.'],
-  ['Financing', 'Financing is subject to credit approval, lender requirements, vehicle eligibility, income verification, down payment, and final contract terms. Examples are estimates, not guarantees.'],
-  ['Trade-ins', 'Trade-in values are estimates until the vehicle is physically inspected and title, condition, mileage, history, and payoff information are verified.'],
   ['Warranty and returns', 'Warranty, return, deductible, coverage, and exclusion details are controlled by the signed buyer documents and any warranty contract provided at purchase.'],
   ['Website use', 'Do not misuse the website, submit false information, interfere with service operation, or attempt unauthorized access to any systems.'],
 ]
 
 export const TermsPage = () => (
   <>
-    <Seo title="Terms" description="Review Rick's Used Cars website terms for inventory, pricing, financing, trade-ins, warranty, and website use." />
+    <Seo title="Terms" description="Review Rick's Used Cars website terms for inventory, pricing, warranty, and website use." />
     <section className="section soft-band">
       <SectionHeading eyebrow="Terms" title="Website Terms" text="Important conditions for using the site and reviewing dealership information." />
       <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
