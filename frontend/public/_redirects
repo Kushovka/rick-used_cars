@@ -1,0 +1,2 @@
+/api/*  https://silica-slug-cacti.ngrok-free.dev/:splat  200
+/*      /index.html                                      200
