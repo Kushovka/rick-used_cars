@@ -28,3 +28,4 @@ postgres_data/
 # Imported source delivery kept outside the application
 ricks-used-cars-delivery/
 ricks-used-cars-delivery.zip
+ricks-used-cars-production.zip

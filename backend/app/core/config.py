@@ -9,7 +9,7 @@ class Settings:
     DB_NAME = os.getenv("POSTGRES_DB", "ricks_used_cars_db")
     BACKEND_CORS_ORIGINS = os.getenv(
         "BACKEND_CORS_ORIGINS",
-        "https://ricksusedscars.com,https://www.ricksusedscars.com,https://ricksusedauto.netlify.app,http://localhost:5173,http://127.0.0.1:5173,http://localhost:5174,http://127.0.0.1:5174,http://localhost:5188,http://127.0.0.1:5188,http://localhost:3000,http://127.0.0.1:3000",
+        "http://localhost:5173,http://127.0.0.1:5173,http://localhost:5174,http://127.0.0.1:5174,http://localhost:5188,http://127.0.0.1:5188,http://localhost:3000,http://127.0.0.1:3000",
     )
     META_PIXEL_ID = os.getenv("META_PIXEL_ID", "")
     META_ACCESS_TOKEN = os.getenv("META_ACCESS_TOKEN", "")
