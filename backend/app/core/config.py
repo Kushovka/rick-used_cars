@@ -2,7 +2,6 @@ import os
 
 
 class Settings:
-    DATABASE_URL = os.getenv("DATABASE_URL", "")
     DB_USER = os.getenv("POSTGRES_USER", "kirill")
     DB_PASS = os.getenv("POSTGRES_PASSWORD", "kirill")
     DB_HOST = os.getenv("POSTGRES_HOST", "localhost")
@@ -26,9 +25,6 @@ class Settings:
 
     @property
     def DB_URL(self) -> str:
-        if self.DATABASE_URL:
-            return self.DATABASE_URL.replace("postgresql://", "postgresql+psycopg://", 1)
-
         return (
             f"postgresql+psycopg://{self.DB_USER}:"
             f"{self.DB_PASS}@{self.DB_HOST}:{self.DB_PORT}/{self.DB_NAME}"
