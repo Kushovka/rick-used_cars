@@ -10,8 +10,6 @@ type LeadFormProps = {
   vehicleId?: string
   vehicleName?: string
   vehicleValue?: number
-  showSubject?: boolean
-  subjectPlaceholder?: string
   messagePlaceholder?: string
   variant?: 'contact' | 'default' | 'vehicle'
 }
@@ -36,7 +34,7 @@ const formatUsPhone = (value: string) => {
   return `${COUNTRY_CODE_PREFIX}(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6)}`
 }
 
-export const LeadForm = ({ title, vehicleId, vehicleName, vehicleValue, showSubject = false, subjectPlaceholder = 'Subject', messagePlaceholder = 'Message (optional)', variant = 'default' }: LeadFormProps) => {
+export const LeadForm = ({ title, vehicleId, vehicleName, vehicleValue, messagePlaceholder = 'Message (optional)', variant = 'default' }: LeadFormProps) => {
   const prefersReducedMotion = useReducedMotion()
   const formStartedAt = useMemo(() => Date.now(), [])
   const [sent, setSent] = useState(false)
@@ -65,9 +63,7 @@ export const LeadForm = ({ title, vehicleId, vehicleName, vehicleValue, showSubj
         const lastName = String(form.get('lastName') ?? '').trim()
         const phone = getPhoneDigits(phoneValue)
         const email = String(form.get('email') ?? '').trim()
-        const subject = String(form.get('subject') ?? '').trim()
         const website = String(form.get('website') ?? '').trim()
-        const preferredContact = String(form.get('preferredContact') ?? '').trim()
         const message = String(form.get('message') ?? '').trim()
         const customerName = `${firstName} ${lastName}`.trim()
         const leadType = vehicleId ? 'quote' : 'contact'
@@ -94,8 +90,6 @@ export const LeadForm = ({ title, vehicleId, vehicleName, vehicleValue, showSubj
             customerName,
             phone,
             email,
-            subject: subject || undefined,
-            preferredContact: preferredContact === 'Best time to contact' ? undefined : preferredContact,
             message,
             metaEventId,
             fbp,
@@ -175,13 +169,6 @@ export const LeadForm = ({ title, vehicleId, vehicleName, vehicleValue, showSubj
           }}
         />
         <input aria-label="Email" className="input" name="email" placeholder="Email" type="email" />
-        {showSubject ? <input required className="input sm:col-span-2" name="subject" placeholder={subjectPlaceholder} /> : null}
-        <select aria-label="Best time to contact" className="input" name="preferredContact">
-          <option>Best time to contact</option>
-          <option>Morning</option>
-          <option>Afternoon</option>
-          <option>Evening</option>
-        </select>
         <textarea aria-label="Message" className="input min-h-28 sm:col-span-2" name="message" placeholder={messagePlaceholder} />
       </div>
       <div className="mt-5">

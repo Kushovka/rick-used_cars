@@ -6,8 +6,6 @@ export type LeadPayload = {
   customerName: string
   phone: string
   email?: string
-  subject?: string
-  preferredContact?: string
   zipCode?: string
   message?: string
   sourcePage?: string
@@ -32,8 +30,6 @@ export const createLead = async (payload: LeadPayload) => {
     customer_name: payload.customerName,
     phone: payload.phone,
     email: payload.email || undefined,
-    subject: payload.subject || undefined,
-    preferred_contact: payload.preferredContact || undefined,
     zip_code: payload.zipCode || undefined,
     message: payload.message || undefined,
     source_page: payload.sourcePage || window.location.pathname,

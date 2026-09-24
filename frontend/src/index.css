@@ -434,7 +434,6 @@
   .contact-form > div:first-of-type { margin-top: 0; gap: 10px; }
   .contact-form .input { min-height: 44px; padding: 10px 15px; border-radius: 0; font-size: 14px; }
   .contact-form textarea.input { min-height: 99px; resize: vertical; }
-  .contact-form select[name="preferredContact"] { grid-column: 1 / -1; }
   .contact-form button { min-height: 47px; border-radius: 2px; padding-inline: 23px; font-size: 14px; }
   .contact-form p.rounded-md { border-radius: 0; }
   .contact-map-section { padding: 29px 0 22px; background: var(--color-background); }

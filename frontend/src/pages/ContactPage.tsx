@@ -52,7 +52,7 @@ export const ContactPage = () => (
         <div className="contact-message">
           <p className="contact-eyebrow">Send us a message <i /></p>
           <h2>Have a question?<br />We’re here to help.</h2>
-          <LeadForm title="Send a Message" showSubject variant="contact" />
+          <LeadForm title="Send a Message" variant="contact" />
         </div>
       </div>
     </section>

@@ -44,7 +44,7 @@ export const DeliveryPage = () => (
             </div>
           </div>
           <div id="delivery-quote" className="scroll-mt-[calc(var(--header-height)+1rem)]">
-            <LeadForm title="Request delivery quote" showSubject subjectPlaceholder="Vehicle or stock number" messagePlaceholder="Destination city, state, and ZIP code" />
+            <LeadForm title="Request delivery quote" messagePlaceholder="Destination city, state, and ZIP code" />
           </div>
         </div>
       </section>
