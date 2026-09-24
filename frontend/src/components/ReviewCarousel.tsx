@@ -67,12 +67,12 @@ export const ReviewCarousel = () => {
                 transition={{ duration: prefersReducedMotion ? 0.14 : 0.24, ease: [0.16, 1, 0.3, 1] }}
               >
                 {activeReviews.map((review, index) => (
-                <article className={`reviews-card reviews-card--${index + 1}`} key={`${review.author}-${review.date ?? review.publish_time ?? index}`}>
+                <article className={`reviews-card reviews-card--${index + 1}`} key={`${review.author}-${review.date ?? index}`}>
                   <Stars />
                   <p className="reviews-quote">“{reviewExcerpt(review.text)}”</p>
                   <div className="reviews-author">
                     <span className="reviews-avatar">{initials(review.author)}</span>
-                    <div><p>{review.author}</p><small>{review.date ?? review.publish_time ?? 'Google review'}</small></div>
+                    <div><p>{review.author}</p><small>{review.date}</small></div>
                   </div>
                 </article>
                 ))}

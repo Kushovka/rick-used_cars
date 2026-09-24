@@ -5,7 +5,6 @@ from fastapi.staticfiles import StaticFiles
 
 from app.api.events import router as events_router
 from app.api.leads import router as leads_router
-from app.api.reviews import router as reviews_router
 from app.api.vehicles import router as vehicles_router
 from app.core.config import settings
 
@@ -35,7 +34,6 @@ async def add_media_cache_headers(request, call_next):
 app.include_router(leads_router)
 app.include_router(vehicles_router)
 app.include_router(events_router)
-app.include_router(reviews_router)
 app.mount("/media", StaticFiles(directory="app/static/media"), name="media")
 
 

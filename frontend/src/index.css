@@ -250,14 +250,13 @@
   .reviews-google-link:hover { background: var(--color-primary); color: var(--color-surface); }
   .reviews-cards { min-height: 426px; }
   .reviews-cards-page { display: grid; min-height: 426px; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: 1.08fr .92fr; gap: 14px; will-change: transform, opacity, filter; }
-  .reviews-card, .reviews-skeleton { display: flex; min-width: 0; flex-direction: column; padding: 28px 27px 25px; border-radius: 5px; background: var(--color-primary); color: var(--color-surface); }
+  .reviews-card { display: flex; min-width: 0; flex-direction: column; padding: 28px 27px 25px; border-radius: 5px; background: var(--color-primary); color: var(--color-surface); }
   .reviews-cards-page > :nth-child(3) { grid-column: 1 / -1; }
   .reviews-quote { display: -webkit-box; margin: 20px 0 0; overflow: hidden; color: var(--color-surface); font-size: 19px; font-weight: 500; line-height: 1.5; -webkit-box-orient: vertical; -webkit-line-clamp: 3; }
   .reviews-author { display: flex; align-items: center; gap: 13px; margin-top: auto; padding-top: 17px; }
   .reviews-avatar { display: grid; width: 42px; height: 42px; flex: 0 0 42px; place-items: center; border-radius: 50%; background: var(--color-surface); color: var(--color-primary); font-size: 11px; font-weight: 700; letter-spacing: .04em; }
   .reviews-author p { margin: 0; color: var(--color-surface); font-size: 14px; font-weight: 500; }
   .reviews-author small { display: block; margin-top: 3px; color: rgba(255,253,248,.62); font-size: 12px; }
-  .reviews-skeleton { animation: reviews-pulse 1.2s ease-in-out infinite alternate; background: color-mix(in srgb, var(--color-primary) 84%, var(--color-section)); }
   .reviews-footer-mark { display: none; align-items: center; gap: .85rem; color: var(--color-primary); font-size: 10px; font-weight: 700; letter-spacing: .16em; line-height: 1.35; text-transform: uppercase; }
   @keyframes reviews-pulse { to { opacity: .52; } }
 
@@ -285,7 +284,7 @@
     .reviews-actions { align-items: flex-start; flex-direction: column-reverse; }
     .reviews-cards, .reviews-cards-page { min-height: 0; }
     .reviews-cards-page { grid-template-columns: 1fr; grid-template-rows: none; }
-    .reviews-card, .reviews-skeleton { min-height: 218px; }
+    .reviews-card { min-height: 218px; }
     .reviews-cards-page > :nth-child(3) { grid-column: auto; }
     .reviews-rating-card { padding: 27px 24px; }
     .reviews-rating strong { font-size: 66px; }
