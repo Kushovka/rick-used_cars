@@ -20,11 +20,12 @@ router = APIRouter(prefix="/vehicles", tags=["vehicles"])
 MEDIA_ROOT = Path("app/static/media").resolve()
 
 
-def media_file_exists(path: str) -> bool:
+def resolved_media_path(path: str) -> str | None:
+    """Return the public media path, including a WebP replacement for legacy DB paths."""
     if path.startswith("http://") or path.startswith("https://"):
-        return True
+        return path
     if not path.startswith("/media/"):
-        return True
+        return path
 
     relative_parts = path.removeprefix("/media/").split("/")
     file_path = (MEDIA_ROOT.joinpath(*relative_parts)).resolve()
@@ -32,13 +33,20 @@ def media_file_exists(path: str) -> bool:
     try:
         file_path.relative_to(MEDIA_ROOT)
     except ValueError:
-        return False
+        return None
 
-    return file_path.is_file()
+    if file_path.is_file():
+        return path
+
+    webp_path = file_path.with_suffix(".webp")
+    if webp_path.is_file():
+        return f"{path.rsplit('.', 1)[0]}.webp"
+
+    return None
 
 
 def existing_images(images: list[str] | None) -> list[str]:
-    return [image for image in images or [] if media_file_exists(image)]
+    return [resolved for image in images or [] if (resolved := resolved_media_path(image))]
 
 
 def public_vehicle_details(details: dict | None) -> dict:

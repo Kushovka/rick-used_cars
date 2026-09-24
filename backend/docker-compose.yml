@@ -42,6 +42,7 @@ services:
       SMTP_USE_TLS: ${SMTP_USE_TLS:-true}
       GOOGLE_PLACES_API_KEY: ${GOOGLE_PLACES_API_KEY:-}
       GOOGLE_PLACE_ID: ${GOOGLE_PLACE_ID:-}
+      BASIN_FORM_ACTION: ${BASIN_FORM_ACTION:-https://usebasin.com/f/c65beb089a28}
 
     ports:
       - "8001:8000"

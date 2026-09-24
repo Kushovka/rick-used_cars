@@ -11,6 +11,7 @@
    - `POSTGRES_USER` и `POSTGRES_DB` при необходимости;
    - `MAIL_TO` — почта, куда должны приходить заявки;
    - SMTP-настройки (`SMTP_HOST`, `SMTP_PORT`, `SMTP_USERNAME`, `SMTP_PASSWORD`, `SMTP_USE_TLS`). Если сторонние почтовые сервисы не используются, можно развернуть Postfix на том же VPS и указать его как SMTP-host;
+   - `BASIN_FORM_ACTION=https://usebasin.com/f/c65beb089a28` — заявки пересылаются в UseBasin сервером, поэтому URL не попадает в браузерный код форм;
    - `BACKEND_CORS_ORIGINS=https://ricksusedscars.com,https://www.ricksusedscars.com`.
 3. Перед сборкой фронтенда создать `frontend/.env`:
    ```env

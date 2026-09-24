@@ -22,6 +22,7 @@ class Settings:
     SMTP_USE_TLS = os.getenv("SMTP_USE_TLS", "true").lower() in {"1", "true", "yes"}
     GOOGLE_PLACES_API_KEY = os.getenv("GOOGLE_PLACES_API_KEY", "")
     GOOGLE_PLACE_ID = os.getenv("GOOGLE_PLACE_ID", "")
+    BASIN_FORM_ACTION = os.getenv("BASIN_FORM_ACTION", "https://usebasin.com/f/c65beb089a28")
 
     @property
     def DB_URL(self) -> str:

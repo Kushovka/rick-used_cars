@@ -10,12 +10,14 @@ import { trackContactCta } from '../utils/ctaTracking'
 const desktopNavItems = [
   { label: 'Inventory', href: '/inventory' },
   { label: 'Warranty', href: '/warranty' },
+  { label: 'Delivery', href: '/delivery' },
   { label: 'About', href: '/about' },
 ]
 
 const mobileNavItems = [
   { label: 'Inventory', href: '/inventory' },
   { label: 'Warranty', href: '/warranty' },
+  { label: 'Delivery', href: '/delivery' },
   { label: 'About', href: '/about' },
   { label: 'Contact Us', href: '/contact' },
   { label: 'Our Team', href: '/team' },
@@ -88,7 +90,7 @@ export const Header = () => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.24, ease: 'easeOut' }}
     >
-      <div className="mx-auto grid h-[78px] max-w-[1728px] grid-cols-[1fr_auto] items-center gap-6 px-5 sm:px-8 xl:h-[112px] xl:grid-cols-[1fr_auto_1fr] xl:px-[5.5rem]">
+      <div className="mx-auto grid h-[var(--header-height)] max-w-[1728px] grid-cols-[1fr_auto] items-center gap-6 px-5 sm:px-8 xl:grid-cols-[1fr_auto_1fr] xl:px-[5.5rem]">
         <Link
           to="/"
           className="flex min-w-0 items-center focus:outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[var(--color-accent)]"

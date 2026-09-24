@@ -1,6 +1,6 @@
 import { motion, useReducedMotion } from 'framer-motion'
 import { useMemo, useState } from 'react'
-import { FaArrowRight } from 'react-icons/fa'
+import { FaArrowRight, FaExclamation } from 'react-icons/fa'
 import { createLead } from '../api/leads'
 import { trackingConfig } from '../config/tracking'
 import { createMetaEventId, getCookieValue, splitName, trackLead } from '../utils/metaPixel'
@@ -11,6 +11,8 @@ type LeadFormProps = {
   vehicleName?: string
   vehicleValue?: number
   showSubject?: boolean
+  subjectPlaceholder?: string
+  messagePlaceholder?: string
   variant?: 'contact' | 'default' | 'vehicle'
 }
 
@@ -34,7 +36,7 @@ const formatUsPhone = (value: string) => {
   return `${COUNTRY_CODE_PREFIX}(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6)}`
 }
 
-export const LeadForm = ({ title, vehicleId, vehicleName, vehicleValue, showSubject = false, variant = 'default' }: LeadFormProps) => {
+export const LeadForm = ({ title, vehicleId, vehicleName, vehicleValue, showSubject = false, subjectPlaceholder = 'Subject', messagePlaceholder = 'Message (optional)', variant = 'default' }: LeadFormProps) => {
   const prefersReducedMotion = useReducedMotion()
   const formStartedAt = useMemo(() => Date.now(), [])
   const [sent, setSent] = useState(false)
@@ -45,6 +47,8 @@ export const LeadForm = ({ title, vehicleId, vehicleName, vehicleValue, showSubj
   return (
     <motion.form
       className={`surface-card p-5 sm:p-6 ${variant === 'contact' ? 'contact-form' : variant === 'vehicle' ? 'lg:p-7' : 'rounded-md'}`}
+      action="/api/leads"
+      method="post"
       initial={prefersReducedMotion ? false : { opacity: 0, clipPath: 'inset(0 0 8% 0)' }}
       whileInView={{ opacity: 1, clipPath: 'inset(0 0 0% 0)' }}
       viewport={{ once: true, amount: 0.2 }}
@@ -171,21 +175,21 @@ export const LeadForm = ({ title, vehicleId, vehicleName, vehicleValue, showSubj
           }}
         />
         <input aria-label="Email" className="input" name="email" placeholder="Email" type="email" />
-        {showSubject ? <input required className="input sm:col-span-2" name="subject" placeholder="Subject" /> : null}
+        {showSubject ? <input required className="input sm:col-span-2" name="subject" placeholder={subjectPlaceholder} /> : null}
         <select aria-label="Best time to contact" className="input" name="preferredContact">
           <option>Best time to contact</option>
           <option>Morning</option>
           <option>Afternoon</option>
           <option>Evening</option>
         </select>
-        <textarea aria-label="Message" className="input min-h-28 sm:col-span-2" name="message" placeholder="Message (optional)" />
+        <textarea aria-label="Message" className="input min-h-28 sm:col-span-2" name="message" placeholder={messagePlaceholder} />
       </div>
       <div className="mt-5">
         <button className="inline-flex min-h-11 w-full items-center justify-center gap-3 rounded-[3px] bg-[var(--color-primary)] px-5 py-3 text-sm font-bold text-white shadow-none transition hover:bg-[var(--color-primary-dark)] active:translate-y-px disabled:cursor-wait disabled:bg-[var(--color-disabled)] sm:w-auto" disabled={submitting} type="submit">
           {submitting ? 'Sending...' : <>{title} <FaArrowRight aria-hidden="true" /></>}
         </button>
       </div>
-      <p className="mt-4 text-[11px] leading-[1.45] text-[var(--color-muted)]">We do not offer in-house financing.</p>
+      <p className="mt-5 flex w-full items-center gap-4 py-3 text-[13px] leading-5 text-[var(--color-text)] sm:text-[15px]" role="status"><span className="grid h-6 w-6 shrink-0 place-items-center rounded-full border-2 border-[var(--color-accent)] text-[10px] text-[var(--color-accent)]" aria-hidden="true"><FaExclamation /></span><span><strong>No financing available.</strong> All purchases are cash or approved payment only.</span></p>
       {sent ? <p className="mt-4 rounded-md bg-[var(--color-hover)] px-4 py-3 text-sm font-normal text-[var(--color-link)]">Thanks. We received your request and will follow up shortly.</p> : null}
       {error ? <p className="mt-4 rounded-md bg-[var(--color-hover)] px-4 py-3 text-sm font-normal text-[var(--color-accent)]">{error}</p> : null}
     </motion.form>

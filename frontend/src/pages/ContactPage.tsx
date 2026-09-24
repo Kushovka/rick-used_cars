@@ -14,7 +14,7 @@ export const ContactPage = () => (
       <div className="contact-hero-shade" />
       <div className="contact-container contact-hero-container">
         <div className="contact-hero-copy">
-          <p className="contact-eyebrow">Contact <i /></p>
+          <p className="hero-page-label">Contact <i /></p>
           <h1 id="contact-hero-title">Let’s get you <span>on the road.</span></h1>
           <p className="contact-hero-lead">Call, visit, or send us a message.<br />We’re here to help.</p>
         </div>
@@ -46,6 +46,7 @@ export const ContactPage = () => (
             <a href={phoneHref} target={business.phoneHref ? undefined : '_blank'} rel={business.phoneHref ? undefined : 'noreferrer'} className="contact-action contact-action-primary" onClick={() => trackContactCta('phone_click', 'Contact Page Call Now')}><FaPhoneAlt aria-hidden="true" /> Call now</a>
             <a href={business.mapsUrl} target="_blank" rel="noreferrer" className="contact-action contact-action-secondary" onClick={() => trackContactCta('directions_click', 'Contact Page Directions')}><FaMap aria-hidden="true" /> Get directions <FaArrowRight className="contact-action-arrow" aria-hidden="true" /></a>
           </div>
+          <p className="contact-financing-note">No financing available</p>
         </div>
 
         <div className="contact-message">

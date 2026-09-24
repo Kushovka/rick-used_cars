@@ -8,6 +8,7 @@ import { trackContactCta } from '../utils/ctaTracking'
 const inventoryLinks = [
   ['Inventory', '/inventory'],
   ['Warranty', '/warranty'],
+  ['Delivery', '/delivery'],
 ]
 
 const informationLinks = [
@@ -48,6 +49,7 @@ export const Footer = () => (
 
       <div className="home-footer-bottom">
         <p>For current availability and pricing, please call the dealership.</p>
+        <p className="home-footer-financing-note">No financing available</p>
         <div className="home-footer-legal"><span>© 2026 Rick's Used Cars. All rights reserved.</span>{legalLinks.map(([label, href]) => <Link key={href} to={href}>{label}</Link>)}</div>
       </div>
     </div>

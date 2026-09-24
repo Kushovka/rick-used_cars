@@ -31,7 +31,7 @@ export const WarrantyPage = () => (
         <div className="warranty-hero-shade" />
         <div className="warranty-container warranty-hero-container">
           <div className="warranty-hero-copy">
-            <p className="warranty-eyebrow">Warranty <i /></p>
+            <p className="hero-page-label">Warranty <i /></p>
             <h1 id="warranty-hero-title">Drive away <span>with confidence.</span></h1>
             <p className="warranty-hero-lead">Clear warranty and return terms, explained before you buy.</p>
             <p className="warranty-hero-subtitle">Straightforward coverage. Clear terms. Local support.</p>

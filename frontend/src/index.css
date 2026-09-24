@@ -6,6 +6,9 @@
 
 @layer base {
   :root {
+    --header-height: 78px;
+    --subpage-hero-height: 500px;
+
     /* Main colors */
     --color-primary: #1f2821;
     --color-primary-dark: #151b16;
@@ -37,6 +40,18 @@
     --color-link-hover: #a33e25;
   }
 
+  @media (min-width: 1280px) {
+    :root {
+      --header-height: 112px;
+    }
+  }
+
+  @media (min-width: 641px) {
+    :root {
+      --subpage-hero-height: 390px;
+    }
+  }
+
   html {
     scroll-behavior: smooth;
   }
@@ -55,11 +70,13 @@
 }
 
 @layer components {
+  .hero-page-label { display: flex; align-items: center; gap: 12px; margin: 0; color: #fffdf8; font-size: 10px; font-weight: 700; letter-spacing: .16em; line-height: 1; text-transform: uppercase; }
+  .hero-page-label i { display: block; width: 44px; height: 1px; flex: 0 0 auto; background: var(--color-accent); }
   .warranty-page { background: var(--color-background); }
   .warranty-container { width: min(100% - 40px, 1400px); margin-inline: auto; }
-  .warranty-hero { position: relative; min-height: 390px; overflow: hidden; background: #102019 url('/images/warranty-hero-service.webp') center / cover no-repeat; color: #fffdf8; }
+  .warranty-hero { position: relative; height: var(--subpage-hero-height); overflow: hidden; background: #102019 url('/images/warranty-hero-service.webp') center / cover no-repeat; color: #fffdf8; }
   .warranty-hero-shade { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(7, 29, 23, .98) 0%, rgba(7, 29, 23, .91) 29%, rgba(7, 29, 23, .41) 51%, rgba(7, 29, 23, .04) 76%); }
-  .warranty-hero-container { position: relative; display: flex; min-height: 390px; align-items: center; justify-content: space-between; }
+  .warranty-hero-container { position: relative; display: flex; height: var(--subpage-hero-height); align-items: center; justify-content: space-between; }
   .warranty-hero-copy { padding: 27px 0 23px 36px; }
   .warranty-eyebrow { display: flex; align-items: center; gap: 13px; margin: 0; color: var(--color-accent); font-size: 11px; font-weight: 700; letter-spacing: .18em; line-height: 1; text-transform: uppercase; }
   .warranty-eyebrow i, .warranty-terms-panel h2 i { display: inline-block; width: 38px; height: 1px; background: var(--color-accent); }
@@ -109,7 +126,7 @@
   .warranty-term h3 { margin: 0; color: var(--color-accent); font-size: 10px; font-weight: 700; letter-spacing: .14em; line-height: 1.2; text-transform: uppercase; }
   .warranty-term p { margin: 7px 0 0; color: #5e635e; font-size: 11px; line-height: 1.45; }
   @media (max-width: 1023px) { .warranty-hero { background-position: 63% center; } .warranty-hero-copy { padding-left: 0; } .warranty-summary-item { padding-inline: 20px; } .warranty-coverage-intro { grid-template-columns: 1fr; gap: 22px; } .warranty-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); } .warranty-card:last-child { grid-column: 1 / -1; } }
-  @media (max-width: 640px) { .warranty-container { width: min(100% - 40px, 1400px); } .warranty-hero, .warranty-hero-container { min-height: 500px; } .warranty-hero { background-position: 63% center; } .warranty-hero-shade { background: linear-gradient(90deg, rgba(7, 29, 23, .97), rgba(7, 29, 23, .83) 55%, rgba(7, 29, 23, .28)); } .warranty-hero-copy { padding: 41px 0; } .warranty-hero h1 { font-size: 3rem; } .warranty-hero-lead { max-width: 295px; font-size: 16px; } .warranty-hero-mark { display: none; } .warranty-summary { padding: 22px 0; } .warranty-summary-grid { grid-template-columns: 1fr; } .warranty-summary-item { grid-template-columns: 45px 63px minmax(0, 1fr); min-height: 93px; padding: 15px 0; } .warranty-summary-item + .warranty-summary-item { border-top: 1px solid var(--color-divider); border-left: 0; } .warranty-summary-shield { font-size: 38px; } .warranty-summary-number { font-size: 61px; } .warranty-summary-item h2 { font-size: 23px; } .warranty-summary-item p { font-size: 12px; } .warranty-summary-note { font-size: 9px; } .warranty-coverage { padding-top: 27px; } .warranty-coverage-intro h2 { font-size: 2.75rem; } .warranty-coverage-intro > p { font-size: 15px; } .warranty-cards { grid-template-columns: 1fr; margin-top: 24px; } .warranty-card, .warranty-card:last-child { grid-column: auto; min-height: 320px; } .warranty-terms { padding-bottom: 24px; } .warranty-terms-panel { padding: 18px; } .warranty-terms-grid { grid-template-columns: 1fr; gap: 0; } }
+  @media (max-width: 640px) { .warranty-container { width: min(100% - 40px, 1400px); } .warranty-hero, .warranty-hero-container { height: var(--subpage-hero-height); } .warranty-hero { background-position: 63% center; } .warranty-hero-shade { background: linear-gradient(90deg, rgba(7, 29, 23, .97), rgba(7, 29, 23, .83) 55%, rgba(7, 29, 23, .28)); } .warranty-hero-copy { padding: 41px 0; } .warranty-hero h1 { font-size: 3rem; } .warranty-hero-lead { max-width: 295px; font-size: 16px; } .warranty-hero-mark { display: none; } .warranty-summary { padding: 22px 0; } .warranty-summary-grid { grid-template-columns: 1fr; } .warranty-summary-item { grid-template-columns: 45px 63px minmax(0, 1fr); min-height: 93px; padding: 15px 0; } .warranty-summary-item + .warranty-summary-item { border-top: 1px solid var(--color-divider); border-left: 0; } .warranty-summary-shield { font-size: 38px; } .warranty-summary-number { font-size: 61px; } .warranty-summary-item h2 { font-size: 23px; } .warranty-summary-item p { font-size: 12px; } .warranty-summary-note { font-size: 9px; } .warranty-coverage { padding-top: 27px; } .warranty-coverage-intro h2 { font-size: 2.75rem; } .warranty-coverage-intro > p { font-size: 15px; } .warranty-cards { grid-template-columns: 1fr; margin-top: 24px; } .warranty-card, .warranty-card:last-child { grid-column: auto; min-height: 320px; } .warranty-terms { padding-bottom: 24px; } .warranty-terms-panel { padding: 18px; } .warranty-terms-grid { grid-template-columns: 1fr; gap: 0; } }
   .featured-vehicles-section {
     position: relative;
     overflow: hidden;
@@ -384,13 +401,13 @@
 
   .contact-page { background: var(--color-background); }
   .contact-container { width: min(100% - 40px, 1240px); margin-inline: auto; }
-  .contact-hero { position: relative; min-height: 326px; overflow: hidden; background: #10251d url('/images/ricks-used-cars-hero.webp') 72% 50% / cover no-repeat; color: #fffdf8; }
+  .contact-hero { position: relative; height: var(--subpage-hero-height); overflow: hidden; background: #10251d url('/images/ricks-used-cars-hero.webp') 72% 50% / cover no-repeat; color: #fffdf8; }
   .contact-hero-shade { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(8, 28, 22, .98) 0%, rgba(8, 28, 22, .94) 25%, rgba(8, 28, 22, .63) 48%, rgba(8, 28, 22, .08) 77%); }
-  .contact-hero-container { position: relative; display: flex; min-height: 326px; align-items: center; justify-content: space-between; }
+  .contact-hero-container { position: relative; display: flex; height: var(--subpage-hero-height); align-items: center; justify-content: space-between; }
   .contact-hero-copy { padding: 27px 0 25px 11px; }
   .contact-eyebrow { display: flex; align-items: center; gap: 14px; margin: 0; color: var(--color-accent); font-size: 11px; font-weight: 700; letter-spacing: .17em; line-height: 1; text-transform: uppercase; }
   .contact-eyebrow i { display: block; width: 48px; height: 1px; background: var(--color-accent); }
-  .contact-hero h1 { max-width: 590px; margin: 17px 0 0; color: #fffdf8; font-family: 'Barlow Condensed', sans-serif; font-size: clamp(3.8rem, 5.5vw, 5.05rem); font-weight: 700; letter-spacing: -.035em; line-height: .89; text-transform: uppercase; }
+  .contact-hero h1 { max-width: 590px; margin: 17px 0 0; color: #fffdf8; font-family: 'Barlow Condensed', sans-serif; font-size: clamp(4rem, 5.65vw, 5.15rem); font-weight: 700; letter-spacing: -.035em; line-height: .89; text-transform: uppercase; }
   .contact-hero h1 span { display: block; color: var(--color-accent); }
   .contact-hero-lead { margin: 15px 0 0; color: rgba(255,253,248,.94); font-size: 17px; line-height: 1.4; }
   .contact-hero-mark { align-self: center; margin: 0 27px 0 0; color: #fffdf8; font-family: 'Barlow Condensed', sans-serif; font-size: 22px; font-weight: 600; letter-spacing: -.01em; line-height: .92; text-transform: uppercase; }
@@ -405,6 +422,7 @@
   .contact-fact strong { display: block; font-weight: 500; }
   .contact-fact small { display: block; margin-top: 6px; color: var(--color-muted); font-size: 13px; line-height: 1.4; }
   .contact-actions { display: grid; gap: 13px; margin-top: 34px; }
+  .contact-financing-note { margin: 14px 0 0; color: var(--color-accent); font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
   .contact-action { display: inline-flex; min-height: 52px; align-items: center; justify-content: center; gap: 14px; padding: 0 20px; border: 1px solid var(--color-primary); color: var(--color-primary); font-size: 13px; font-weight: 700; letter-spacing: .025em; text-transform: uppercase; transition: background .2s ease, color .2s ease, transform .2s ease; }
   .contact-action:hover { transform: translateY(-1px); }
   .contact-action:active { transform: translateY(0); }
@@ -436,11 +454,11 @@
 
   @media (max-width: 640px) {
     .contact-container { width: min(100% - 32px, 1240px); }
-    .contact-hero, .contact-hero-container { min-height: 397px; }
+    .contact-hero, .contact-hero-container { height: var(--subpage-hero-height); }
     .contact-hero { background-position: 67% center; }
     .contact-hero-shade { background: linear-gradient(90deg, rgba(8, 28, 22, .97), rgba(8, 28, 22, .85) 58%, rgba(8, 28, 22, .26)); }
     .contact-hero-copy { padding-left: 0; }
-    .contact-hero h1 { font-size: clamp(3.45rem, 15.5vw, 4.25rem); }
+    .contact-hero h1 { font-size: 3rem; }
     .contact-hero-lead { font-size: 16px; }
     .contact-hero-mark { display: none; }
     .contact-details { padding-block: 33px 29px; }
@@ -496,6 +514,7 @@
   .home-footer-brand p + p { margin-top: 5px; color: var(--color-surface); font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
   .home-footer-bottom { margin-top: 52px; border-top: 1px solid rgba(255,253,248,.24); padding-top: 22px; color: rgba(255,253,248,.62); font-size: 12px; line-height: 1.5; }
   .home-footer-bottom > p { max-width: 840px; margin: 0; }
+  .home-footer-bottom > .home-footer-financing-note { margin-top: 10px; color: rgba(255,253,248,.9); font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
   .home-footer-legal { display: flex; flex-wrap: wrap; gap: 10px 25px; margin-top: 18px; color: rgba(255,253,248,.62); font-size: 12px; }
   .home-footer-legal a { color: var(--color-surface); text-decoration: underline; text-underline-offset: 3px; transition: color .2s ease; }
   .home-footer-legal a:hover { color: var(--color-accent); }
