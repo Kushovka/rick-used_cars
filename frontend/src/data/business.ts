@@ -1,8 +1,8 @@
 export const business = {
   name: "Rick's Used Cars",
   legalNote: 'Local used car dealership',
-  phone: '(570) 675-6029',
-  phoneHref: 'tel:+15706756029',
+  phone: '570-927-5157',
+  phoneHref: 'tel:+15709275157',
   address: '601 Main Rd',
   cityState: 'Dallas, PA',
   postalCode: '18612',
