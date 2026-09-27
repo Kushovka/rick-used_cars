@@ -36,7 +36,7 @@ class Vehicle(Base):
     specs: Mapped[dict] = mapped_column(JSON, default=dict, nullable=False)
     details: Mapped[dict] = mapped_column(JSON, default=dict, nullable=False)
     featured: Mapped[bool] = mapped_column(Boolean, default=False, index=True, nullable=False)
-    financing_available: Mapped[bool] = mapped_column(Boolean, default=True, nullable=False)
+    financing_available: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False)
     warranty_available: Mapped[bool] = mapped_column(Boolean, default=True, nullable=False)
     delivery_available: Mapped[bool] = mapped_column(Boolean, default=True, nullable=False)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow, nullable=False)

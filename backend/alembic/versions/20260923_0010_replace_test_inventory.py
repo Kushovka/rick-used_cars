@@ -75,7 +75,7 @@ def vehicle(
             {"label": "Interior Color", "value": interior},
         ]},
         "featured": len(VEHICLES) < 6,
-        "financing_available": True,
+        "financing_available": False,
         "warranty_available": True,
         "delivery_available": True,
     }
