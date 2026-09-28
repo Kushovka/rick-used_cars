@@ -13,7 +13,7 @@ export const TeamPage = () => (
         <div className="mt-7 grid grid-cols-2 gap-4 sm:mt-8 sm:gap-5 lg:grid-cols-4 lg:gap-6">
           {teamPortraits.map((member, index) => (
             <article key={member.src} className="group overflow-hidden rounded-[14px] bg-[var(--color-surface)] shadow-[0_10px_26px_rgba(31,40,33,0.12)]">
-              <div className="relative aspect-[4/5] overflow-hidden bg-[var(--color-accent)]">
+              <div className="relative aspect-[4/5] overflow-hidden bg-[var(--color-border)]">
                 <img src={member.src} alt={member.alt} loading={index > 3 ? 'lazy' : 'eager'} style={{ transformOrigin: `50% ${member.zoomOriginY}%` }} className="absolute inset-0 h-full w-full scale-[1.2] object-cover object-center transition duration-500 ease-out motion-safe:group-hover:scale-[1.24]" />
               </div>
               <div className="px-4 py-4 sm:px-5 sm:py-5">
