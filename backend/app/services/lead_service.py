@@ -1,3 +1,5 @@
+from collections.abc import Mapping
+
 from fastapi import HTTPException
 from sqlalchemy import select
 from sqlalchemy.orm import Session
@@ -32,7 +34,11 @@ TRACKING_FIELDS = {
 }
 
 
-def create_lead(db: Session, payload: LeadCreate) -> Lead:
+def create_lead(
+    db: Session,
+    payload: LeadCreate,
+    basin_request_headers: Mapping[str, str] | None = None,
+) -> Lead:
     if payload.vehicle_id:
         vehicle = db.scalar(select(Vehicle.id).where(Vehicle.id == payload.vehicle_id))
         if not vehicle:
@@ -43,5 +49,5 @@ def create_lead(db: Session, payload: LeadCreate) -> Lead:
     db.commit()
     db.refresh(lead)
     send_lead_event(payload)
-    send_lead_to_basin(payload)
+    send_lead_to_basin(payload, basin_request_headers)
     return lead

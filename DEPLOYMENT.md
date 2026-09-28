@@ -18,7 +18,8 @@
    VITE_MAINTENANCE_MODE=false
    ```
    Либо указать отдельный API-домен, если он будет использоваться. В `VITE_META_PIXEL_ID` нужно поставить настоящий ID Meta Pixel; пустое значение отключает пиксель. `VITE_MAINTENANCE_MODE=false` оставляет сайт доступным, а `true` включает технический экран.
-4. Настроить Nginx/Apache: домен `ricksusedscars.com` должен отдавать собранный фронтенд, а `/api` проксировать на backend-порт `8001`.
+   Затем собрать фронтенд из корня проекта: `cd frontend && npm ci && npm run build`. Готовый сайт появится в `frontend/dist`; его нужно раздавать с домена `ricksusedscars.com`.
+4. Настроить Nginx/Apache: домен должен отдавать `frontend/dist`, `/api/` проксировать на `127.0.0.1:8001/` (с удалением префикса `/api`), а `/media/` — на `127.0.0.1:8001` с сохранением пути. SPA-маршруты должны возвращать `index.html`. API слушает только loopback, база PostgreSQL доступна только внутри Docker.
 5. Из папки `backend` запустить:
    ```bash
    docker compose up -d --build

@@ -55,4 +55,9 @@ def create_customer_lead(payload: LeadCreate, request: Request, db: Session = De
         if forwarded_for
         else request.client.host if request.client else None
     )
-    return create_lead(db, payload)
+    basin_request_headers = {
+        "origin": request.headers.get("origin", ""),
+        "referer": request.headers.get("referer", ""),
+        "user-agent": request.headers.get("user-agent", ""),
+    }
+    return create_lead(db, payload, basin_request_headers)

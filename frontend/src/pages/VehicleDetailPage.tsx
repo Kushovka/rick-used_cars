@@ -52,7 +52,7 @@ export const VehicleDetailPage = () => {
     getVehicle(slug ?? '')
       .then(async (item) => {
         const [listingDescription, listingInfo] = await Promise.all([
-          fetch(`/listing-descriptions/${item.slug}.txt`).then((response) => response.ok ? response.text() : '').catch(() => ''),
+          fetch(`/listing-descriptions/${item.slug}.txt`, { cache: 'no-store' }).then((response) => response.ok ? response.text() : '').catch(() => ''),
           fetch(`/listing-info/${item.slug}.txt`).then((response) => response.ok ? response.text() : '').catch(() => ''),
         ])
         if (!cancelled) {
