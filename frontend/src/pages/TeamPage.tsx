@@ -14,7 +14,7 @@ export const TeamPage = () => (
           {teamPortraits.map((member, index) => (
             <article key={member.src} className="group overflow-hidden rounded-[14px] bg-[var(--color-surface)] shadow-[0_10px_26px_rgba(31,40,33,0.12)]">
               <div className="relative aspect-[4/5] overflow-hidden bg-[var(--color-accent)]">
-                <img src={member.src} alt={member.alt} loading={index > 3 ? 'lazy' : 'eager'} className="absolute inset-0 h-full w-full object-cover object-center transition duration-500 ease-out motion-safe:group-hover:scale-[1.035]" />
+                <img src={member.src} alt={member.alt} loading={index > 3 ? 'lazy' : 'eager'} style={{ transformOrigin: `50% ${member.zoomOriginY}%` }} className="absolute inset-0 h-full w-full scale-[1.2] object-cover object-center transition duration-500 ease-out motion-safe:group-hover:scale-[1.24]" />
               </div>
               <div className="px-4 py-4 sm:px-5 sm:py-5">
                 <h2 className="font-['Barlow_Condensed'] text-[25px] font-bold uppercase leading-none tracking-[-0.025em] text-[var(--color-primary)] sm:text-[29px]">{member.label}</h2>
