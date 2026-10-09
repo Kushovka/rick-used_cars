@@ -18,5 +18,5 @@ export const autoDealerSchema = {
     longitude: business.longitude,
   },
   url: business.website || business.mapsUrl,
-  openingHours: 'Mo-Sa 09:00-17:00',
+  openingHours: 'Mo-Fr 09:00-17:00',
 }

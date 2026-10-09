@@ -14,7 +14,7 @@ export const business = {
   mapEmbedUrl: 'https://maps.google.com/maps?q=Rick%27s%20Used%20Cars%2C%20601%20Main%20Rd%2C%20Dallas%2C%20PA%2018612&z=16&output=embed',
   streetViewImage: 'https://streetviewpixels-pa.googleapis.com/v1/thumbnail?cb_client=maps_sv.tactile&w=900&h=600&pitch=-3.53011237528807&panoid=P-Lonqqa5UFTEtCdL1R7qw&yaw=68.84367033188857',
   heroImage: '/images/ricks-used-cars-hero.webp',
-  hours: 'Monday–Saturday, 9:00 AM–5:00 PM; Sunday closed',
+  hours: 'Monday–Friday, 9:00 AM–5:00 PM; Saturday and Sunday closed',
   hoursShort: 'Open today — see weekly hours',
   hoursList: [
     ['Monday', '9:00 AM – 5:00 PM'],
@@ -22,7 +22,7 @@ export const business = {
     ['Wednesday', '9:00 AM – 5:00 PM'],
     ['Thursday', '9:00 AM – 5:00 PM'],
     ['Friday', '9:00 AM – 5:00 PM'],
-    ['Saturday', '9:00 AM – 5:00 PM'],
+    ['Saturday', 'Closed'],
     ['Sunday', 'Closed'],
   ],
   serviceArea: 'Serving Dallas and nearby Pennsylvania drivers',

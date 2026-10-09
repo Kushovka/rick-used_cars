@@ -86,6 +86,15 @@ export const ReviewCarousel = () => {
           <button type="button" onClick={() => changePage(1)} disabled={!canPaginate} aria-label="Show next reviews"><FaArrowRight /></button>
         </div>
 
+        <div className="reviews-deliveries" aria-label="Customers with their vehicles">
+          <img src="/images/customer-deliveries/pickup-gmc.webp" alt="Customer with his dark GMC pickup" loading="lazy" />
+          <img src="/images/customer-deliveries/pickup-toyota.webp" alt="Customer with his gray Toyota SUV" loading="lazy" />
+          <div className="reviews-delivery-photo-zoom">
+            <img src="/images/customer-deliveries/pickup-explorer.webp" alt="Customer with his white Ram pickup" loading="lazy" />
+          </div>
+          <img src="/images/customer-deliveries/pickup-dodge.webp" alt="Customer with his dark Dodge Ram pickup" loading="lazy" />
+        </div>
+
         <div className="reviews-footer-mark reviews-footer-mark--left"><span>Est. local</span><i /></div>
         <div className="reviews-footer-mark reviews-footer-mark--right"><i /><span>Cars for<br />real life</span></div>
       </div>
