@@ -1,4 +1,3 @@
-import { motion } from 'framer-motion'
 import { Link } from 'react-router'
 import { FaArrowRight, FaClock, FaMapMarkerAlt, FaPhoneAlt } from 'react-icons/fa'
 
@@ -25,12 +24,7 @@ const legalLinks = [
 const phoneHref = business.phoneHref || business.contactHref
 
 export const Footer = () => (
-  <motion.footer
-    className="home-footer"
-    initial={{ opacity: 0 }}
-    animate={{ opacity: 1 }}
-    transition={{ duration: 0.3, ease: 'easeOut' }}
-  >
+  <footer className="home-footer">
     <div className="home-footer-container">
       <div className="home-footer-main">
         <section className="home-footer-contact" aria-label="Contact Rick's Used Cars">
@@ -53,5 +47,5 @@ export const Footer = () => (
         <div className="home-footer-legal"><span>© 2026 Rick's Used Cars. All rights reserved.</span>{legalLinks.map(([label, href]) => <Link key={href} to={href}>{label}</Link>)}</div>
       </div>
     </div>
-  </motion.footer>
+  </footer>
 )

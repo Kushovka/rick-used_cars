@@ -1,6 +1,8 @@
-import { FaCheck } from 'react-icons/fa'
+import { useRef, useState } from 'react'
+import { FaCheck, FaTimes } from 'react-icons/fa'
 import { LeadForm } from '../components/LeadForm'
 import { Seo } from '../components/Seo'
+import { trackContactCta } from '../utils/ctaTracking'
 
 const expectations = [
   'Delivery coordination across the United States',
@@ -10,8 +12,28 @@ const expectations = [
   'Support from purchase through arrival',
 ]
 
-export const DeliveryPage = () => (
-  <>
+export const DeliveryPage = () => {
+  const quoteDialogRef = useRef<HTMLDialogElement>(null)
+  const [quoteVisible, setQuoteVisible] = useState(false)
+
+  const openQuoteDialog = () => {
+    const dialog = quoteDialogRef.current
+    if (!dialog || dialog.open) return
+
+    dialog.showModal()
+    window.requestAnimationFrame(() => setQuoteVisible(true))
+  }
+
+  const closeQuoteDialog = () => {
+    const dialog = quoteDialogRef.current
+    if (!dialog?.open) return
+
+    setQuoteVisible(false)
+    window.setTimeout(() => dialog.close(), 220)
+  }
+
+  return (
+    <>
     <Seo title="Nationwide Vehicle Delivery" description="Coordinate nationwide vehicle delivery from Rick's Used Cars in Dallas, Pennsylvania." />
     <main className="bg-[var(--color-background)]">
       <section className="relative isolate h-[var(--subpage-hero-height)] overflow-hidden bg-[var(--color-primary)] text-[#fffdf8]">
@@ -22,7 +44,7 @@ export const DeliveryPage = () => (
             <p className="hero-page-label">Delivery <i /></p>
             <h1 className="mt-4 font-['Barlow_Condensed'] text-[48px] font-bold uppercase leading-[.88] tracking-[-.035em] sm:text-[64px] lg:text-[82px]">Nationwide<br /><span className="text-[var(--color-accent)]">vehicle delivery.</span></h1>
             <p className="mt-4 max-w-[630px] text-[15px] leading-6 text-white/90 sm:text-[17px] sm:leading-7">Found the right vehicle but live outside Dallas? Rick&apos;s Used Cars can coordinate delivery to your home, business, or another approved destination.</p>
-            <a href="#delivery-quote" className="mt-5 inline-flex min-h-11 items-center justify-center bg-[var(--color-accent)] px-5 text-sm font-bold text-white transition hover:bg-[var(--color-accent-dark)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">Get a delivery estimate</a>
+            <button type="button" onClick={() => { trackContactCta('contact_form_click', 'Delivery Hero Estimate'); openQuoteDialog() }} className="mt-5 inline-flex min-h-11 items-center justify-center bg-[var(--color-accent)] px-5 text-sm font-bold text-white transition hover:bg-[var(--color-accent-dark)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">Get a delivery estimate</button>
             <p className="mt-3 text-[11px] font-bold uppercase tracking-[0.12em] text-white/80">No financing available</p>
           </div>
         </div>
@@ -49,5 +71,26 @@ export const DeliveryPage = () => (
         </div>
       </section>
     </main>
+    <dialog
+      ref={quoteDialogRef}
+      aria-labelledby="delivery-quote-title"
+      className={`lead-form-dialog m-auto max-h-[90dvh] w-[calc(100%-2rem)] max-w-[600px] overflow-y-auto border border-[var(--color-border)] bg-[var(--color-background)] p-0 text-[var(--color-text)] shadow-[0_24px_80px_rgba(0,0,0,0.42)] ${quoteVisible ? 'is-visible' : ''}`}
+      onCancel={(event) => { event.preventDefault(); closeQuoteDialog() }}
+      onClick={(event) => { if (event.target === event.currentTarget) closeQuoteDialog() }}
+    >
+      <div className="flex items-start justify-between gap-5 border-b border-[var(--color-divider)] bg-[var(--color-surface)] px-5 py-4 sm:px-7">
+        <div>
+          <h2 id="delivery-quote-title" className="font-['Barlow_Condensed'] text-3xl font-bold uppercase leading-none tracking-[-.02em] text-[var(--color-primary)] sm:text-4xl">Request delivery quote</h2>
+          <p className="mt-2 text-sm leading-6 text-[var(--color-muted)]">Tell us where you would like the vehicle delivered.</p>
+        </div>
+        <button type="button" aria-label="Close delivery estimate form" onClick={closeQuoteDialog} className="grid h-10 w-10 shrink-0 place-items-center text-[var(--color-muted)] transition hover:bg-[var(--color-hover)] hover:text-[var(--color-primary)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]">
+          <FaTimes aria-hidden="true" />
+        </button>
+      </div>
+      <div className="p-4 sm:p-6">
+        <LeadForm title="Request delivery quote" messagePlaceholder="Destination city, state, and ZIP code" />
+      </div>
+    </dialog>
   </>
-)
+  )
+}

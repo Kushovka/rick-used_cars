@@ -24,6 +24,7 @@ backend/.pytest_cache/
 # Local services and generated data
 postgres_data/
 *.log
+secrets.txt
 
 # Imported source delivery kept outside the application
 ricks-used-cars-delivery/

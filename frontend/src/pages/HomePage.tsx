@@ -1,9 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Link, useNavigate } from "react-router";
-import { FaArrowLeft, FaArrowRight, FaCar, FaCarSide, FaCog, FaMapMarkerAlt, FaRoad, FaShieldAlt, FaUsers } from "react-icons/fa";
+import { FaArrowLeft, FaArrowRight, FaCar, FaCarSide, FaCog, FaMapMarkerAlt, FaRoad, FaShieldAlt, FaTimes, FaUsers } from "react-icons/fa";
 import { getVehicleFilters, listVehicles } from "../api/vehicles";
 import { Button } from "../components/Button";
+import { LeadForm } from "../components/LeadForm";
 import { ReviewCarousel } from "../components/ReviewCarousel";
 import { Seo } from "../components/Seo";
 import { business } from "../data/business";
@@ -114,6 +115,8 @@ const FeaturedVehiclesSkeleton = () => (
 export const HomePage = () => {
   const navigate = useNavigate();
   const prefersReducedMotion = useReducedMotion();
+  const questionDialogRef = useRef<HTMLDialogElement>(null);
+  const [questionDialogVisible, setQuestionDialogVisible] = useState(false);
   const [featured, setFeatured] = useState<Vehicle[]>([]);
   const [featuredPage, setFeaturedPage] = useState(0);
   const [featuredMobileIndex, setFeaturedMobileIndex] = useState(0);
@@ -129,6 +132,23 @@ export const HomePage = () => {
   const [heroYears, setHeroYears] = useState<number[]>([]);
   const [heroPrices, setHeroPrices] = useState<number[]>([]);
   const [heroFiltersLoading, setHeroFiltersLoading] = useState(true);
+
+  const openQuestionDialog = () => {
+    const dialog = questionDialogRef.current;
+    if (!dialog || dialog.open) return;
+
+    trackContactCta("contact_form_click", "Home Ask a Question");
+    dialog.showModal();
+    window.requestAnimationFrame(() => setQuestionDialogVisible(true));
+  };
+
+  const closeQuestionDialog = () => {
+    const dialog = questionDialogRef.current;
+    if (!dialog?.open) return;
+
+    setQuestionDialogVisible(false);
+    window.setTimeout(() => dialog.close(), 220);
+  };
 
   useEffect(() => {
     let cancelled = false;
@@ -355,7 +375,6 @@ export const HomePage = () => {
           </div>
           {[
             ['Browse the lot', 'See current vehicles, prices, mileage, and details.', '/inventory'],
-            ['Ask a question', 'Send us a message about a vehicle or your visit.', '/contact'],
           ].map(([title, text, href]) => (
             <Link key={href} to={href} className="group border-b border-white/15 px-6 py-8 transition hover:bg-white/10 lg:border-b-0 lg:border-r lg:last:border-r-0 lg:px-8">
               <span className="block font-['Barlow_Condensed'] text-3xl font-semibold uppercase leading-none tracking-[-0.02em]">{title}</span>
@@ -363,6 +382,11 @@ export const HomePage = () => {
               <span className="mt-5 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.1em] text-[#e1b18e]">Open <FaArrowRight className="transition group-hover:translate-x-1" /></span>
             </Link>
           ))}
+          <button type="button" onClick={openQuestionDialog} className="group border-b border-white/15 px-6 py-8 text-left transition hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-inset focus-visible:outline-[#e1b18e] lg:border-b-0 lg:border-r lg:last:border-r-0 lg:px-8">
+            <span className="block font-['Barlow_Condensed'] text-3xl font-semibold uppercase leading-none tracking-[-0.02em]">Ask a question</span>
+            <span className="mt-3 block max-w-[15rem] text-sm leading-6 text-white/64">Send us a message about a vehicle or your visit.</span>
+            <span className="mt-5 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.1em] text-[#e1b18e]">Open <FaArrowRight className="transition group-hover:translate-x-1" /></span>
+          </button>
         </div>
       </motion.section>
 
@@ -486,6 +510,13 @@ export const HomePage = () => {
           <div className="visit-dealership-mark visit-dealership-mark--bottom-right"><i /><span>Cars for<br />real life</span></div>
         </div>
       </section>
+      <dialog ref={questionDialogRef} aria-labelledby="home-question-dialog-title" className={`lead-form-dialog m-auto max-h-[90dvh] w-[calc(100%-2rem)] max-w-[600px] overflow-y-auto border border-[var(--color-border)] bg-[var(--color-background)] p-0 text-[var(--color-text)] shadow-[0_24px_80px_rgba(0,0,0,0.42)] ${questionDialogVisible ? 'is-visible' : ''}`} onCancel={(event) => { event.preventDefault(); closeQuestionDialog(); }} onClick={(event) => { if (event.target === event.currentTarget) closeQuestionDialog(); }}>
+        <div className="flex items-start justify-between gap-5 border-b border-[var(--color-divider)] bg-[var(--color-surface)] px-5 py-4 sm:px-7">
+          <div><h2 id="home-question-dialog-title" className="font-['Barlow_Condensed'] text-3xl font-bold uppercase leading-none tracking-[-.02em] text-[var(--color-primary)] sm:text-4xl">Ask a Question</h2><p className="mt-2 text-sm leading-6 text-[var(--color-muted)]">Send us a message about a vehicle or your visit.</p></div>
+          <button type="button" aria-label="Close question form" onClick={closeQuestionDialog} className="grid h-10 w-10 shrink-0 place-items-center text-[var(--color-muted)] transition hover:bg-[var(--color-hover)] hover:text-[var(--color-primary)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]"><FaTimes aria-hidden="true" /></button>
+        </div>
+        <div className="p-4 sm:p-6"><LeadForm title="Send a Message" variant="contact" /></div>
+      </dialog>
     </>
   );
 };

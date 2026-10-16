@@ -1,4 +1,3 @@
-import { motion, useReducedMotion } from 'framer-motion'
 import { useMemo, useState } from 'react'
 import { FaArrowRight, FaExclamation } from 'react-icons/fa'
 import { createLead } from '../api/leads'
@@ -35,7 +34,6 @@ const formatUsPhone = (value: string) => {
 }
 
 export const LeadForm = ({ title, vehicleId, vehicleName, vehicleValue, messagePlaceholder = 'Message (optional)', variant = 'default' }: LeadFormProps) => {
-  const prefersReducedMotion = useReducedMotion()
   const formStartedAt = useMemo(() => Date.now(), [])
   const [sent, setSent] = useState(false)
   const [error, setError] = useState('')
@@ -43,14 +41,10 @@ export const LeadForm = ({ title, vehicleId, vehicleName, vehicleValue, messageP
   const [submitting, setSubmitting] = useState(false)
 
   return (
-    <motion.form
+    <form
       className={`surface-card p-5 sm:p-6 ${variant === 'contact' ? 'contact-form' : variant === 'vehicle' ? 'lg:p-7' : 'rounded-md'}`}
       action="/api/leads"
       method="post"
-      initial={prefersReducedMotion ? false : { opacity: 0, clipPath: 'inset(0 0 8% 0)' }}
-      whileInView={{ opacity: 1, clipPath: 'inset(0 0 0% 0)' }}
-      viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: prefersReducedMotion ? 0.14 : 0.4, ease: [0.16, 1, 0.3, 1] }}
       onSubmit={async (event) => {
         event.preventDefault()
         const formElement = event.currentTarget
@@ -179,6 +173,6 @@ export const LeadForm = ({ title, vehicleId, vehicleName, vehicleValue, messageP
       <p className="mt-5 flex w-full items-center gap-4 py-3 text-[13px] leading-5 text-[var(--color-text)] sm:text-[15px]" role="status"><span className="grid h-6 w-6 shrink-0 place-items-center rounded-full border-2 border-[var(--color-accent)] text-[10px] text-[var(--color-accent)]" aria-hidden="true"><FaExclamation /></span><span><strong>No financing available.</strong> All purchases are cash or approved payment only.</span></p>
       {sent ? <p className="mt-4 rounded-md bg-[var(--color-hover)] px-4 py-3 text-sm font-normal text-[var(--color-link)]">Thanks. We received your request and will follow up shortly.</p> : null}
       {error ? <p className="mt-4 rounded-md bg-[var(--color-hover)] px-4 py-3 text-sm font-normal text-[var(--color-accent)]">{error}</p> : null}
-    </motion.form>
+    </form>
   )
 }

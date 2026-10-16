@@ -84,11 +84,8 @@ export const Header = () => {
   }
 
   return (
-    <motion.header
+    <header
       className="sticky inset-x-0 top-0 z-50 border-b border-[var(--color-border)] bg-[rgba(245,241,232,0.96)] backdrop-blur"
-      initial={{ opacity: 0, y: -8 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.24, ease: 'easeOut' }}
     >
       <div className="mx-auto grid h-[var(--header-height)] max-w-[1728px] grid-cols-[1fr_auto] items-center gap-6 px-5 sm:px-8 xl:grid-cols-[1fr_auto_1fr] xl:px-[5.5rem]">
         <Link
@@ -238,6 +235,6 @@ export const Header = () => {
           </motion.div>
         ) : null}
       </AnimatePresence>
-    </motion.header>
+    </header>
   )
 }
