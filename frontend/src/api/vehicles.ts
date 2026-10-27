@@ -46,6 +46,7 @@ export type VehicleListParams = {
   transmission?: string
   drivetrain?: string
   color?: string
+  status?: string
   featured?: boolean
   priceMin?: number
   priceMax?: number
@@ -170,6 +171,7 @@ const toListParams = (params: VehicleListParams) => ({
   transmission: params.transmission || undefined,
   drivetrain: params.drivetrain || undefined,
   color: params.color || undefined,
+  status: params.status || undefined,
   featured: params.featured,
   price_min: params.priceMin,
   price_max: params.priceMax,

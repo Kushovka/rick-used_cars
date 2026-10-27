@@ -1,12 +1,13 @@
 import { SectionHeading } from '../components/SectionHeading'
 import { Seo } from '../components/Seo'
 import { business } from '../data/business'
+import { trackContactCta } from '../utils/ctaTracking'
 
 const terms = [
   ['Website information', "Inventory, pricing, mileage, equipment, photos, availability, and vehicle details are provided for convenience and may change without notice. Confirm all details directly with Rick's Used Cars before relying on them."],
   ['Vehicle availability', 'A vehicle is not held, reserved, or sold until the required dealership paperwork, payment, and approval steps are completed. Online inquiries do not create a purchase agreement.'],
   ['Pricing and fees', 'Listed prices may not include tax, title, registration, dealer documentation, lender fees, optional products, shipping, or other government and third-party charges unless specifically stated.'],
-  ['Warranty and returns', 'Warranty, return, deductible, coverage, and exclusion details are controlled by the signed buyer documents and any warranty contract provided at purchase.'],
+  ['Warranty and returns', 'Every vehicle purchase includes the same 90-day / 3,000-mile warranty and 72-hour / 250-mile money-back guarantee. The warranty covers the components listed on the Warranty page, with the same exclusions for every vehicle.'],
   ['Website use', 'Do not misuse the website, submit false information, interfere with service operation, or attempt unauthorized access to any systems.'],
 ]
 
@@ -28,7 +29,7 @@ export const TermsPage = () => (
           </div>
           <div className="mt-8 rounded-md bg-[var(--color-section)] p-4 text-sm font-normal leading-7 text-[var(--color-muted)]">
             For current vehicle details or terms, contact {business.name} at{' '}
-            <a className="font-normal text-[var(--color-link)]" href={business.phoneHref || business.contactHref}>{business.phone}</a>.
+            <a className="font-normal text-[var(--color-link)]" href={business.phoneHref || business.contactHref} onClick={() => trackContactCta('phone_click', 'Terms Page Phone')}>{business.phone}</a>.
           </div>
         </div>
       </div>

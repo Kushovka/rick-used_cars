@@ -1,12 +1,14 @@
 import { useMemo, useState } from 'react'
 import { FaArrowRight, FaExclamation } from 'react-icons/fa'
-import { createLead } from '../api/leads'
+import { createLead, sendMetaCapiLead } from '../api/leads'
 import { trackingConfig } from '../config/tracking'
 import { createMetaEventId, getCookieValue, splitName, trackLead } from '../utils/metaPixel'
+import { getTestEventCode } from '../utils/metaAttribution'
 
 type LeadFormProps = {
   title: string
   vehicleId?: string
+  vehicleContentId?: string
   vehicleName?: string
   vehicleValue?: number
   messagePlaceholder?: string
@@ -33,7 +35,7 @@ const formatUsPhone = (value: string) => {
   return `${COUNTRY_CODE_PREFIX}(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6)}`
 }
 
-export const LeadForm = ({ title, vehicleId, vehicleName, vehicleValue, messagePlaceholder = 'Message (optional)', variant = 'default' }: LeadFormProps) => {
+export const LeadForm = ({ title, vehicleId, vehicleContentId, vehicleName, vehicleValue, messagePlaceholder = 'Message (optional)', variant = 'default' }: LeadFormProps) => {
   const formStartedAt = useMemo(() => Date.now(), [])
   const [sent, setSent] = useState(false)
   const [error, setError] = useState('')
@@ -65,11 +67,12 @@ export const LeadForm = ({ title, vehicleId, vehicleName, vehicleValue, messageP
         const fbp = getCookieValue('_fbp')
         const fbc = getCookieValue('_fbc')
         const { firstName: metaFirstName, lastName: metaLastName } = splitName(customerName)
-        const contentIds = [vehicleId ?? `${trackingConfig.meta.defaultLeadContentPrefix}-${leadType}`]
+        const contentIds = [vehicleContentId?.trim() || vehicleId || `${trackingConfig.meta.defaultLeadContentPrefix}-${leadType}`]
         const contentType = vehicleId ? trackingConfig.meta.productContentType : trackingConfig.meta.serviceContentType
         const contentName = vehicleName ?? `${leadType} request`
         const currency = trackingConfig.meta.currency
         const eventValue = vehicleValue ?? trackingConfig.meta.defaultLeadValue
+        const testEventCode = getTestEventCode()
 
         if (phone.length !== 10) {
           setSubmitting(false)
@@ -78,7 +81,7 @@ export const LeadForm = ({ title, vehicleId, vehicleName, vehicleValue, messageP
         }
 
         try {
-          await createLead({
+          const savedLead = await createLead({
             vehicleId,
             leadType,
             customerName,
@@ -86,6 +89,7 @@ export const LeadForm = ({ title, vehicleId, vehicleName, vehicleValue, messageP
             email,
             message,
             metaEventId,
+            testEventCode,
             fbp,
             fbc,
             userAgent: navigator.userAgent,
@@ -118,8 +122,34 @@ export const LeadForm = ({ title, vehicleId, vehicleName, vehicleValue, messageP
               },
             })
           } catch {
-            // Browser tracking can be blocked; the lead itself was already submitted.
+            // Browser tracking can be blocked; the saved lead is unaffected.
           }
+          if (savedLead.capi_ticket) {
+            try {
+              await sendMetaCapiLead({
+                leadId: savedLead.id,
+                eventId: metaEventId,
+                capiTicket: savedLead.capi_ticket,
+                email,
+                phone,
+                firstName: metaFirstName,
+                lastName: metaLastName,
+                contentId: contentIds[0],
+                contentType,
+                currency,
+                price: eventValue ?? 0,
+                zip: String(form.get('zipCode') ?? '').trim() || undefined,
+                fbp,
+                fbc,
+                eventSourceUrl: window.location.href,
+                testEventCode,
+              })
+            } catch (capiError) {
+              // The saved lead stays successful; inspect the raw Meta response in DevTools Network.
+              console.warn('Meta CAPI response was not successful', capiError)
+            }
+          }
+
           setError('')
           setSent(true)
           setPhoneValue('')

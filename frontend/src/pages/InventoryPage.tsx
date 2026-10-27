@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link, useSearchParams } from 'react-router'
-import { FaCar, FaChevronDown, FaChevronLeft, FaChevronRight, FaPhoneAlt, FaShieldAlt, FaThLarge, FaList, FaSlidersH, FaSearch, FaTimes } from 'react-icons/fa'
+import { FaArrowRight, FaCar, FaChevronDown, FaChevronLeft, FaChevronRight, FaPhoneAlt, FaShieldAlt, FaThLarge, FaList, FaSlidersH, FaSearch, FaTimes } from 'react-icons/fa'
 import { getVehicleFilters, listVehicles } from '../api/vehicles'
 import { Seo } from '../components/Seo'
 import { VehicleGridSkeleton } from '../components/Skeletons'
@@ -23,34 +23,40 @@ const phoneHref = business.phoneHref || business.contactHref
 const selectClass = 'inventory-select inventory-select--dark mt-1 h-10 w-full border border-white/15 bg-[#17221b] pl-3 text-[12px] text-[#fffdf8] outline-none transition focus:border-[#d45a3d]'
 const filterLabel = 'block text-[10px] font-bold uppercase tracking-[0.12em] text-white/70'
 
-const InventoryVehicleCard = ({ vehicle }: { vehicle: Vehicle }) => (
-  <article className="group flex min-w-0 flex-col border border-[var(--color-border)] bg-[var(--color-surface)] transition duration-200 hover:-translate-y-0.5 hover:border-[var(--color-primary)]">
+const InventoryVehicleCard = ({ vehicle }: { vehicle: Vehicle }) => {
+  const sold = vehicle.status?.toLowerCase() === 'sold'
+
+  return <article className={`group flex min-w-0 flex-col border transition duration-200 hover:-translate-y-0.5 ${sold ? 'border-[#beb8ac] bg-[var(--color-section)]' : 'border-[var(--color-border)] bg-[var(--color-surface)] hover:border-[var(--color-primary)]'}`}>
     <Link to={`/inventory/${vehicle.slug}`} className="relative block aspect-[4/3] overflow-hidden bg-[var(--color-primary)]">
-      <img src={vehicle.images[0]} alt={`${vehicle.year} ${vehicle.make} ${vehicle.model}`} className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.025]" loading="lazy" />
+      <img src={vehicle.images[0]} alt={`${vehicle.year} ${vehicle.make} ${vehicle.model}`} className={`h-full w-full object-cover transition duration-500 group-hover:scale-[1.025] ${sold ? 'brightness-[.82] saturate-[.78]' : ''}`} loading="lazy" />
       <span className="absolute left-0 top-0 bg-[var(--color-primary)] px-3 py-2 text-[9px] font-bold uppercase tracking-[0.08em] text-[#fffdf8]">{vehicle.bodyType}</span>
+      {sold ? <span className="absolute right-3 top-3 bg-[var(--color-accent-dark)] px-3 py-2 text-[10px] font-bold uppercase tracking-[0.12em] text-white">Sold</span> : null}
     </Link>
-    <div className="flex flex-1 flex-col p-3.5 sm:p-4">
+    <div className={`flex flex-1 flex-col p-3.5 sm:p-4 ${sold ? 'bg-[var(--color-section)]' : ''}`}>
       {vehicle.stockNumber ? <p className="text-[9px] font-bold uppercase tracking-[0.11em] text-[var(--color-muted)]">Stock #{vehicle.stockNumber}</p> : null}
-      <h3 className="mt-1.5 min-h-[2.45rem] font-['Barlow_Condensed'] text-[22px] font-bold leading-[0.92] text-[var(--color-text)]">{vehicle.year} {vehicle.make} {vehicle.model}</h3>
+      <h3 className={`mt-1.5 min-h-[2.45rem] font-['Barlow_Condensed'] text-[22px] font-bold leading-[0.92] ${sold ? 'text-[#505850]' : 'text-[var(--color-text)]'}`}>{vehicle.year} {vehicle.make} {vehicle.model}</h3>
       <p className="mt-1 h-4 truncate text-[11px] text-[var(--color-muted)]">{vehicle.trim}</p>
-      <p className="mt-3 font-['Barlow_Condensed'] text-[28px] font-bold leading-none tracking-tight text-[var(--color-primary)]">{formatPrice(vehicle.price)}</p>
-      <p className="mt-2 flex items-center gap-1.5 text-[9px] font-bold uppercase tracking-[0.07em] text-[var(--color-accent)]"><FaShieldAlt aria-hidden="true" />72-hour money-back guarantee</p>
+      {sold ? <p className="mt-3 text-[9px] font-bold uppercase tracking-[0.12em] text-[var(--color-muted)]">Last listed</p> : null}
+      <p className={`mt-1 font-['Barlow_Condensed'] text-[28px] font-bold leading-none tracking-tight ${sold ? 'text-[var(--color-muted)]' : 'text-[var(--color-primary)]'}`}>{formatPrice(vehicle.price)}</p>
+      {vehicle.status?.toLowerCase() !== 'sold' ? <p className="mt-2 flex items-center gap-1.5 text-[9px] font-bold uppercase tracking-[0.07em] text-[var(--color-accent)]"><FaShieldAlt aria-hidden="true" />72 hours / 250 miles money-back guarantee</p> : null}
       <p className="mt-3 min-h-9 border-t border-[var(--color-divider)] pt-2.5 text-[10px] leading-[1.45] text-[var(--color-muted)]">{formatNumber(vehicle.mileage)} mi <span className="px-1 text-[var(--color-accent)]">•</span> {vehicle.drivetrain} <span className="px-1 text-[var(--color-accent)]">•</span> {vehicle.transmission}</p>
-      <div className="mt-auto grid grid-cols-[minmax(0,1fr)_76px] gap-2 pt-3">
-        <Link to={`/inventory/${vehicle.slug}`} className="inline-flex h-9 items-center justify-center bg-[var(--color-primary)] px-2 text-[10px] font-bold uppercase tracking-[0.035em] text-white transition hover:bg-[var(--color-accent)] active:translate-y-px">View Details</Link>
-        <a href={phoneHref} target={business.phoneHref ? undefined : '_blank'} rel={business.phoneHref ? undefined : 'noreferrer'} className="inline-flex h-9 items-center justify-center gap-1.5 border border-[var(--color-primary)] px-2 text-[10px] font-bold uppercase tracking-[0.035em] text-[var(--color-primary)] transition hover:bg-[var(--color-hover)] active:translate-y-px" onClick={() => trackContactCta('phone_click', 'Inventory Vehicle Card Contact')}><FaPhoneAlt className="text-[var(--color-accent)]" /> Call</a>
+      <div className={`mt-auto grid gap-2 pt-3 ${sold ? 'grid-cols-2' : 'grid-cols-[minmax(0,1fr)_76px]'}`}>
+        <Link to={`/inventory/${vehicle.slug}`} className={`inline-flex h-9 items-center justify-center border px-2 text-[10px] font-bold uppercase tracking-[0.035em] transition active:translate-y-px ${sold ? 'border-[#b8b2a7] bg-transparent text-[var(--color-primary)] hover:bg-[#ddd7cb]' : 'border-transparent bg-[var(--color-primary)] text-white hover:bg-[var(--color-accent)]'}`}>{sold ? 'Sold details' : 'View Details'}</Link>
+        {sold ? <Link to="/inventory?status=Available" className="inline-flex h-9 items-center justify-center gap-1 border border-[var(--color-primary)] bg-[var(--color-primary)] px-2 text-[10px] font-bold uppercase tracking-[0.035em] text-white transition hover:bg-[var(--color-primary-dark)] active:translate-y-px">Browse cars <FaArrowRight aria-hidden="true" /></Link> : <a href={phoneHref} target={business.phoneHref ? undefined : '_blank'} rel={business.phoneHref ? undefined : 'noreferrer'} className="inline-flex h-9 items-center justify-center gap-1.5 border border-[var(--color-primary)] px-2 text-[10px] font-bold uppercase tracking-[0.035em] text-[var(--color-primary)] transition hover:bg-[var(--color-hover)] active:translate-y-px" onClick={() => trackContactCta('phone_click', 'Inventory Vehicle Card Contact')}><FaPhoneAlt className="text-[var(--color-accent)]" /> Call</a>}
       </div>
     </div>
   </article>
-)
+}
 
-const InventoryVehicleListItem = ({ vehicle }: { vehicle: Vehicle }) => (
-  <article className="group grid min-w-0 gap-4 border border-[var(--color-border)] bg-[var(--color-surface)] p-3 transition hover:border-[var(--color-primary)] sm:grid-cols-[170px_minmax(0,1fr)_auto] sm:items-center sm:p-4">
-    <Link to={`/inventory/${vehicle.slug}`} className="relative block aspect-[4/3] overflow-hidden bg-[var(--color-primary)] sm:aspect-[5/3]"><img src={vehicle.images[0]} alt={`${vehicle.year} ${vehicle.make} ${vehicle.model}`} className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.025]" loading="lazy" /><span className="absolute left-0 top-0 bg-[var(--color-primary)] px-2.5 py-1.5 text-[9px] font-bold uppercase tracking-[0.08em] text-[#fffdf8]">{vehicle.bodyType}</span></Link>
-    <div className="min-w-0">{vehicle.stockNumber ? <p className="text-[9px] font-bold uppercase tracking-[0.11em] text-[var(--color-muted)]">Stock #{vehicle.stockNumber}</p> : null}<h3 className="mt-1 font-['Barlow_Condensed'] text-[26px] font-bold leading-none text-[var(--color-text)]">{vehicle.year} {vehicle.make} {vehicle.model}</h3><p className="mt-1 truncate text-[11px] text-[var(--color-muted)]">{vehicle.trim}</p><p className="mt-3 text-[10px] leading-[1.45] text-[var(--color-muted)]">{formatNumber(vehicle.mileage)} mi <span className="px-1 text-[var(--color-accent)]">•</span> {vehicle.drivetrain} <span className="px-1 text-[var(--color-accent)]">•</span> {vehicle.transmission}</p></div>
-    <div className="grid grid-cols-[1fr_auto] items-center gap-3 border-t border-[var(--color-divider)] pt-3 sm:block sm:border-t-0 sm:pt-0 sm:text-right"><p className="font-['Barlow_Condensed'] text-[30px] font-bold leading-none tracking-tight text-[var(--color-primary)]">{formatPrice(vehicle.price)}</p><Link to={`/inventory/${vehicle.slug}`} className="inline-flex h-9 items-center justify-center bg-[var(--color-primary)] px-4 text-[10px] font-bold uppercase tracking-[0.06em] text-white transition hover:bg-[var(--color-accent)]">View details</Link></div>
+const InventoryVehicleListItem = ({ vehicle }: { vehicle: Vehicle }) => {
+  const sold = vehicle.status?.toLowerCase() === 'sold'
+
+  return <article className={`group grid min-w-0 gap-4 border p-3 transition sm:grid-cols-[170px_minmax(0,1fr)_auto] sm:items-center sm:p-4 ${sold ? 'border-[#beb8ac] bg-[var(--color-section)]' : 'border-[var(--color-border)] bg-[var(--color-surface)] hover:border-[var(--color-primary)]'}`}>
+    <Link to={`/inventory/${vehicle.slug}`} className="relative block aspect-[4/3] overflow-hidden bg-[var(--color-primary)] sm:aspect-[5/3]"><img src={vehicle.images[0]} alt={`${vehicle.year} ${vehicle.make} ${vehicle.model}`} className={`h-full w-full object-cover transition duration-500 group-hover:scale-[1.025] ${sold ? 'brightness-[.82] saturate-[.78]' : ''}`} loading="lazy" /><span className="absolute left-0 top-0 bg-[var(--color-primary)] px-2.5 py-1.5 text-[9px] font-bold uppercase tracking-[0.08em] text-[#fffdf8]">{vehicle.bodyType}</span>{sold ? <span className="absolute right-3 top-3 bg-[var(--color-accent-dark)] px-3 py-2 text-[10px] font-bold uppercase tracking-[0.12em] text-white">Sold</span> : null}</Link>
+    <div className="min-w-0">{vehicle.stockNumber ? <p className="text-[9px] font-bold uppercase tracking-[0.11em] text-[var(--color-muted)]">Stock #{vehicle.stockNumber}</p> : null}<h3 className={`mt-1 font-['Barlow_Condensed'] text-[26px] font-bold leading-none ${sold ? 'text-[#505850]' : 'text-[var(--color-text)]'}`}>{vehicle.year} {vehicle.make} {vehicle.model}</h3><p className="mt-1 truncate text-[11px] text-[var(--color-muted)]">{vehicle.trim}</p><p className="mt-3 text-[10px] leading-[1.45] text-[var(--color-muted)]">{formatNumber(vehicle.mileage)} mi <span className="px-1 text-[var(--color-accent)]">•</span> {vehicle.drivetrain} <span className="px-1 text-[var(--color-accent)]">•</span> {vehicle.transmission}</p></div>
+    <div className="grid grid-cols-[1fr_auto] items-center gap-3 border-t border-[var(--color-divider)] pt-3 sm:block sm:border-t-0 sm:pt-0 sm:text-right">{sold ? <p className="mb-1 text-[9px] font-bold uppercase tracking-[0.12em] text-[var(--color-muted)]">Last listed</p> : null}<p className={`font-['Barlow_Condensed'] text-[30px] font-bold leading-none tracking-tight ${sold ? 'text-[var(--color-muted)]' : 'text-[var(--color-primary)]'}`}>{formatPrice(vehicle.price)}</p><Link to={`/inventory/${vehicle.slug}`} className={`inline-flex h-9 items-center justify-center border px-4 text-[10px] font-bold uppercase tracking-[0.06em] transition ${sold ? 'border-[#b8b2a7] text-[var(--color-primary)] hover:bg-[#ddd7cb]' : 'border-transparent bg-[var(--color-primary)] text-white hover:bg-[var(--color-accent)]'}`}>{sold ? 'Sold details' : 'View details'}</Link></div>
   </article>
-)
+}
 
 export const InventoryPage = () => {
   const [searchParams] = useSearchParams()
@@ -63,6 +69,7 @@ export const InventoryPage = () => {
   const [bodyType, setBodyType] = useState('')
   const [transmission, setTransmission] = useState('')
   const [drivetrain, setDrivetrain] = useState('')
+  const [status, setStatus] = useState(() => searchParams.get('status') ?? '')
   const [search, setSearch] = useState('')
   const [viewMode, setViewMode] = useState<ViewMode>('grid')
   const [sort, setSort] = useState<SortKey>('year')
@@ -82,6 +89,15 @@ export const InventoryPage = () => {
 
   useEffect(() => {
     setSearch(searchParams.get('q') ?? '')
+    setMake(searchParams.get('make') ?? '')
+    setModel(searchParams.get('model') ?? '')
+    setYearFrom(queryNumber(searchParams.get('yearFrom')))
+    setPriceMin(queryNumber(searchParams.get('priceMin')))
+    setPriceMax(queryNumber(searchParams.get('priceMax')))
+    setBodyType('')
+    setTransmission('')
+    setDrivetrain('')
+    setStatus(searchParams.get('status') ?? '')
     setPage(1)
   }, [searchParams])
 
@@ -98,14 +114,14 @@ export const InventoryPage = () => {
   useEffect(() => {
     let cancelled = false
     Promise.resolve().then(() => { if (!cancelled) setLoading(true) })
-    listVehicles({ make, model, q: search, yearFrom, bodyType, transmission, drivetrain, priceMin, priceMax, page, pageSize: PAGE_SIZE, sort: sort === 'price-low' ? 'price_asc' : sort === 'price-high' ? 'price_desc' : sort === 'mileage' ? 'mileage_asc' : 'year_desc' })
+    listVehicles({ make, model, q: search, yearFrom, bodyType, transmission, drivetrain, status, priceMin, priceMax, page, pageSize: PAGE_SIZE, sort: sort === 'price-low' ? 'price_asc' : sort === 'price-high' ? 'price_desc' : sort === 'mileage' ? 'mileage_asc' : 'year_desc' })
       .then((response) => { if (!cancelled) { setItems(response.items); setTotal(response.total); setInventoryError(false) } })
       .catch(() => { if (!cancelled) { setItems([]); setTotal(0); setInventoryError(true) } })
       .finally(() => { if (!cancelled) setLoading(false) })
     return () => { cancelled = true }
-  }, [bodyType, drivetrain, make, model, page, priceMax, priceMin, search, sort, transmission, yearFrom])
+  }, [bodyType, drivetrain, make, model, page, priceMax, priceMin, search, sort, status, transmission, yearFrom])
 
-  const resetFilters = () => { setPage(1); setMake(''); setModel(''); setSearch(''); setYearFrom(undefined); setPriceMin(undefined); setPriceMax(undefined); setBodyType(''); setTransmission(''); setDrivetrain('') }
+  const resetFilters = () => { setPage(1); setMake(''); setModel(''); setSearch(''); setYearFrom(undefined); setPriceMin(undefined); setPriceMax(undefined); setBodyType(''); setTransmission(''); setDrivetrain(''); setStatus('') }
   const totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE))
   const pageNumbers = Array.from({ length: totalPages }, (_, index) => index + 1)
   const goToPage = (nextPage: number) => { setPage(Math.min(totalPages, Math.max(1, nextPage))); window.setTimeout(() => resultsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 0) }

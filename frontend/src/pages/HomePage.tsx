@@ -93,7 +93,7 @@ const FeaturedVehicleShowcase = ({ vehicle }: { vehicle: Vehicle }) => {
           <div className="featured-vehicle-card__meta"><span>{vehicle.bodyType}</span>{vehicle.stockNumber ? <span>#{vehicle.stockNumber}</span> : null}</div>
           <h3>{title}</h3>
           <p className="featured-vehicle-card__price">{formatPrice(vehicle.price)}</p>
-          <p className="featured-vehicle-card__guarantee"><FaShieldAlt aria-hidden="true" />72-hour money-back guarantee</p>
+          <p className="featured-vehicle-card__guarantee"><FaShieldAlt aria-hidden="true" />72 hours / 250 miles money-back guarantee</p>
           <div className="featured-vehicle-card__specs">
             <span><FaRoad />{formatNumber(vehicle.mileage)} mi</span>
             {vehicle.engine ? <span><FaCog />{vehicle.engine}</span> : null}

@@ -6,15 +6,15 @@ const notCovered = ['Brakes and tires', 'Suspension and steering', 'Battery, bel
 const voids = ['Aftermarket parts or tuning', 'Missed maintenance', 'Accident damage', 'Towing beyond rating, off-road use, or racing', 'Repair outside dealer-authorized service']
 
 const leftTerms = [
-  ['Return window', 'The 72-hour money-back guarantee is available from delivery or pickup, according to the final purchase paperwork.'],
-  ['Warranty start date', 'Warranty starts from the purchase date or delivery date for out-of-area customers.'],
-  ['Maintenance records', 'Keep all service and maintenance receipts. Missing records may affect warranty eligibility.'],
+  ['Money-back guarantee', 'Every vehicle purchase includes the same 72-hour / 250-mile money-back guarantee, starting at pickup or delivery. The window ends when either limit is reached first.'],
+  ['Warranty start date', 'The 90-day warranty starts when you take possession of the vehicle, at pickup or delivery.'],
+  ['Maintenance records', 'Keep all service and maintenance receipts to support warranty repairs.'],
 ]
 const rightTerms = [
-  ['Dealer-covered return', 'When return terms are met, return costs are handled by the dealership and the vehicle refund is processed according to the signed documents.'],
-  ['Time and mileage limit', 'Coverage is measured by both days and mileage at the same time; it ends when either 90 days or 3,000 miles is reached first.'],
+  ['Return process', 'For a return requested within the 72-hour / 250-mile window, Rick’s Used Cars coordinates the return and refund.'],
+  ['Warranty term', 'Every vehicle includes the same 90-day / 3,000-mile warranty. Coverage ends when either limit is reached first.'],
   ['Written agreements', 'Keep all promises, approvals, and repair instructions in writing before authorizing work.'],
-  ["Service provider", "Confirm whether coverage is handled directly by Rick's Used Cars or through a third-party warranty company."],
+  ['Warranty support', "Contact Rick's Used Cars for help with warranty service."],
 ]
 
 const TermsColumn = ({ terms }: { terms: string[][] }) => (
@@ -42,10 +42,10 @@ export const WarrantyPage = () => (
       <section className="warranty-summary" aria-label="Warranty summary">
         <div className="warranty-container">
           <div className="warranty-summary-grid">
-            <article className="warranty-summary-item"><FaShieldAlt className="warranty-summary-shield" aria-hidden="true" /><span className="warranty-summary-number">01</span><div><h2>72-hour money-back guarantee</h2><p>Clear return terms explained before purchase.</p></div></article>
-            <article className="warranty-summary-item"><FaShieldAlt className="warranty-summary-shield" aria-hidden="true" /><span className="warranty-summary-number">02</span><div><h2>90-Day / 3,000-Mile Warranty</h2><p>Coverage for eligible major components, subject<br className="hidden xl:block" /> to the purchase documents.</p></div></article>
+            <article className="warranty-summary-item"><FaShieldAlt className="warranty-summary-shield" aria-hidden="true" /><span className="warranty-summary-number">01</span><div><h2>72-hour / 250-mile money-back guarantee</h2><p>Included with every vehicle purchase.</p></div></article>
+            <article className="warranty-summary-item"><FaShieldAlt className="warranty-summary-shield" aria-hidden="true" /><span className="warranty-summary-number">02</span><div><h2>90-Day / 3,000-Mile Warranty</h2><p>Included with every vehicle purchase. See covered components below.</p></div></article>
           </div>
-          <p className="warranty-summary-note">Actual coverage, exclusions and return terms are controlled by the documents signed at purchase.</p>
+          <p className="warranty-summary-note">The same warranty and money-back guarantee apply to every vehicle. Each ends when its time or mileage limit is reached first.</p>
         </div>
       </section>
 
@@ -53,9 +53,9 @@ export const WarrantyPage = () => (
         <div className="warranty-container">
           <div className="warranty-coverage-intro"><div><p className="warranty-eyebrow">Coverage at a glance <i /></p><h2 id="coverage-title">Know what’s covered<br />before you drive away.</h2></div><p>We keep the important details easy to understand<br className="hidden lg:block" /> so you know what to expect.</p></div>
           <div className="warranty-cards">
-            <article className="warranty-card warranty-card--covered"><header><FaCheckCircle aria-hidden="true" /><h3>Covered</h3></header><ul>{covered.map((item) => <li key={item}><span><FaCheck /></span>{item}</li>)}</ul><p className="warranty-card-note">Coverage focuses on major internal<br />components and selected comfort/electrical<br />systems.</p></article>
-            <article className="warranty-card"><header><FaBan aria-hidden="true" /><h3>Not covered</h3></header><ul>{notCovered.map((item) => <li key={item}><FaBan />{item}</li>)}</ul><p className="warranty-card-note">These items are not covered under our<br />standard warranty.</p></article>
-            <article className="warranty-card"><header><span className="warranty-warning"><FaExclamation /></span><h3>What voids coverage</h3></header><ul>{voids.map((item) => <li key={item}><FaBan />{item}</li>)}</ul><p className="warranty-card-note">Certain conditions can void coverage.<br />See your purchase documents for full details.</p></article>
+            <article className="warranty-card warranty-card--covered"><header><FaCheckCircle aria-hidden="true" /><h3>Covered</h3></header><ul>{covered.map((item) => <li key={item}><span><FaCheck /></span>{item}</li>)}</ul><p className="warranty-card-note">These covered components are included<br />with every vehicle warranty.</p></article>
+            <article className="warranty-card"><header><FaBan aria-hidden="true" /><h3>Not covered</h3></header><ul>{notCovered.map((item) => <li key={item}><FaBan />{item}</li>)}</ul><p className="warranty-card-note">These items are excluded from<br />every vehicle warranty.</p></article>
+            <article className="warranty-card"><header><span className="warranty-warning"><FaExclamation /></span><h3>What voids coverage</h3></header><ul>{voids.map((item) => <li key={item}><FaBan />{item}</li>)}</ul><p className="warranty-card-note">These warranty conditions apply<br />to every vehicle.</p></article>
           </div>
         </div>
       </section>

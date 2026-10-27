@@ -6,6 +6,7 @@ from sqlalchemy.orm import Session
 
 from app.db.deps import get_db
 from app.schemas.lead import LeadCreate, LeadRead
+from app.services.capi_ticket import create_capi_ticket
 from app.services.lead_service import create_lead
 
 router = APIRouter(prefix="/leads", tags=["leads"])
@@ -60,4 +61,7 @@ def create_customer_lead(payload: LeadCreate, request: Request, db: Session = De
         "referer": request.headers.get("referer", ""),
         "user-agent": request.headers.get("user-agent", ""),
     }
-    return create_lead(db, payload, basin_request_headers)
+    lead = create_lead(db, payload, basin_request_headers)
+    response = LeadRead.model_validate(lead).model_dump(mode="json")
+    response["capi_ticket"] = create_capi_ticket(lead.id, payload.meta_event_id, payload.test_event_code)
+    return response

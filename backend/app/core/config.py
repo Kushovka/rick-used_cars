@@ -13,6 +13,8 @@ class Settings:
     )
     META_PIXEL_ID = os.getenv("META_PIXEL_ID", "")
     META_ACCESS_TOKEN = os.getenv("META_ACCESS_TOKEN", "")
+    META_GRAPH_API_VERSION = os.getenv("META_GRAPH_API_VERSION", "v26.0")
+    PUBLIC_SITE_URL = os.getenv("PUBLIC_SITE_URL", "https://ricksusedscars.com")
     BASIN_FORM_ACTION = os.getenv("BASIN_FORM_ACTION", "https://usebasin.com/f/c65beb089a28")
 
     @property

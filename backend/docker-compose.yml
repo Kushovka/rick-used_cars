@@ -31,6 +31,8 @@ services:
       BACKEND_CORS_ORIGINS: ${BACKEND_CORS_ORIGINS:-https://ricksusedscars.com,https://www.ricksusedscars.com},http://localhost:5173,http://127.0.0.1:5173,http://localhost:5174,http://127.0.0.1:5174,http://localhost:5188,http://127.0.0.1:5188,http://localhost:3000,http://127.0.0.1:3000
       META_PIXEL_ID: ${META_PIXEL_ID:-}
       META_ACCESS_TOKEN: ${META_ACCESS_TOKEN:-}
+      META_GRAPH_API_VERSION: ${META_GRAPH_API_VERSION:-v26.0}
+      PUBLIC_SITE_URL: ${PUBLIC_SITE_URL:-https://ricksusedscars.com}
       BASIN_FORM_ACTION: ${BASIN_FORM_ACTION:-https://usebasin.com/f/c65beb089a28}
 
     ports:

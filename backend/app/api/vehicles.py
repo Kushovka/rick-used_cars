@@ -94,7 +94,7 @@ def serialize_vehicle(vehicle, image_limit: int | None = None) -> dict:
         "details": public_vehicle_details(vehicle.details),
         "featured": vehicle.featured,
         "financing_available": vehicle.financing_available,
-        "warranty_available": vehicle.warranty_available,
+        "warranty_available": True,
         "delivery_available": vehicle.delivery_available,
     }
 
